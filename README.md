@@ -1,7 +1,3 @@
-> [!CAUTION]
-> **Extention désactivée temporairement pour des questions de sécurité ! / Extension temporarily disabled for security reasons !**
-> **Ne pas utiliser l'extension si vous l'avez installée ! / Do not use the extension if you have it installed !**
-
 
 # 🛡️ VirusTotal File Scanner / VirusTotal File Scanner
 
