@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "VirusTotal File Scanner",
-  "version": "1.7",
+  "version": "1.7.1",
   "description": "Scan automatique des fichiers téléchargés via VirusTotal (upload réel). Options pour clé API, notifications et popup détaillé.",
   "permissions": [
     "downloads",
