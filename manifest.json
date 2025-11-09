@@ -1,13 +1,14 @@
 {
   "manifest_version": 2,
-  "name": "VT Auto Scanner (Firefox)",
-  "version": "1.4",
-  "description": "Scan automatique des fichiers t\u00e9l\u00e9charg\u00e9s via VirusTotal (upload r\u00e9el). Options pour cl\u00e9 API, notifications et popup d\u00e9taill\u00e9.",
+  "name": "VirusTotal File Scanner",
+  "version": "1.7",
+  "description": "Scan automatique des fichiers téléchargés via VirusTotal (upload réel). Options pour clé API, notifications et popup détaillé.",
   "permissions": [
     "downloads",
     "notifications",
     "storage",
     "downloads.open",
+    "https://www.virustotal.com/*",
     "<all_urls>"
   ],
   "background": {
@@ -30,5 +31,15 @@
   "icons": {
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
+  },
+"browser_specific_settings": {
+  "gecko": {
+    "id": "{679bb509-5bf5-41e3-9213-652c7a0e14f5}",
+    "strict_min_version": "109.0",
+    "data_collection_permissions": {
+      "required": ["none"],
+      "optional": []
+    }
   }
+}
 }
