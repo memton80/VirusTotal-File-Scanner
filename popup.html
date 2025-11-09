@@ -2,29 +2,396 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>VT Scan</title>
+  <title>VirusTotal Scanner</title>
   <style>
-    body { font-family: system-ui, sans-serif; padding: 12px; width: 340px; }
-    .btn { padding:8px 10px; margin:6px 4px 6px 0; display:inline-block; cursor:pointer; border-radius:6px; background:#0b63d6; color:white; text-decoration:none;}
-    .btn.secondary { background:#6c757d; }
-    .btn.danger { background:#e74c3c; }
-    pre { white-space:pre-wrap; max-height:240px; overflow:auto; background:#f6f6f6; padding:8px; border-radius:6px; }
-    h3 { margin:0 0 8px 0; }
-    .small { font-size:0.85em; color:#666; }
-    .history-item { padding:8px; border-radius:6px; margin-bottom:8px; background:#fff; box-shadow:0 1px 0 rgba(0,0,0,0.04); }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+      width: 420px;
+      max-height: 600px;
+      background: #f9f9fb;
+      color: #0c0c0d;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, #0060df 0%, #003eaa 100%);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .header-icon {
+      width: 24px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0060df;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #003eaa;
+    }
+
+    .btn-primary:active {
+      background: #002275;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #0c0c0d;
+      border: 1px solid #d7d7db;
+    }
+
+    .btn-secondary:hover {
+      background: #ededf0;
+      border-color: #b1b1b3;
+    }
+
+    .btn-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .btn-icon:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-danger {
+      background: #d70022;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #a4000f;
+    }
+
+    /* Content */
+    .content {
+      padding: 16px 20px;
+    }
+
+    .actions-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0c0c0d;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* History items */
+    .history-list {
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .history-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .history-list::-webkit-scrollbar-track {
+      background: #ededf0;
+      border-radius: 4px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb {
+      background: #b1b1b3;
+      border-radius: 4px;
+    }
+
+    .history-list::-webkit-scrollbar-thumb:hover {
+      background: #737373;
+    }
+
+    .history-item {
+      background: white;
+      border-radius: 8px;
+      padding: 14px;
+      box-shadow: 0 1px 4px rgba(12, 12, 13, 0.1);
+      border-left: 4px solid #d7d7db;
+      transition: all 0.2s ease;
+    }
+
+    .history-item:hover {
+      box-shadow: 0 2px 8px rgba(12, 12, 13, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .history-item.safe {
+      border-left-color: #058b00;
+    }
+
+    .history-item.suspicious {
+      border-left-color: #ff9400;
+    }
+
+    .history-item.malicious {
+      border-left-color: #d70022;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .item-filename {
+      font-weight: 600;
+      color: #0c0c0d;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      word-break: break-word;
+    }
+
+    .item-status {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #737373;
+    }
+
+    .item-date {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .detection-badge {
+      background: #ededf0;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .detection-badge.safe {
+      background: #e3f9e1;
+      color: #058b00;
+    }
+
+    .detection-badge.suspicious {
+      background: #fff4e5;
+      color: #cc5d00;
+    }
+
+    .detection-badge.malicious {
+      background: #ffe8e8;
+      color: #d70022;
+    }
+
+    /* Details */
+    details {
+      margin-top: 10px;
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 8px 0;
+      font-weight: 500;
+      color: #0060df;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    summary:hover {
+      color: #003eaa;
+    }
+
+    summary::marker {
+      color: #0060df;
+    }
+
+    .engine-table {
+      width: 100%;
+      margin-top: 8px;
+      border-collapse: collapse;
+      font-size: 12px;
+      max-height: 200px;
+      overflow-y: auto;
+      display: block;
+    }
+
+    .engine-table thead {
+      position: sticky;
+      top: 0;
+      background: #f9f9fb;
+    }
+
+    .engine-table th {
+      text-align: left;
+      padding: 8px;
+      font-weight: 600;
+      color: #0c0c0d;
+      border-bottom: 2px solid #d7d7db;
+    }
+
+    .engine-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid #ededf0;
+    }
+
+    .engine-table tbody {
+      display: block;
+      max-height: 180px;
+      overflow-y: auto;
+    }
+
+    .engine-table tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #737373;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .empty-state-subtext {
+      font-size: 12px;
+      color: #b1b1b3;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 20px;
+      color: #737373;
+    }
+
+    .loading::after {
+      content: '...';
+      animation: dots 1.5s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+
+    /* Hidden file input */
+    #filepicker {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <h3>VirusTotal — Scan</h3>
-  <div style="margin-bottom:8px;">
-    <input id="filepicker" type="file" style="display:none">
-    <button id="pick" class="btn">Choisir un fichier et scanner</button>
-    <button id="options" class="btn secondary">Options</button>
-    <button id="clear-history" class="btn danger">🗑️ Effacer l'historique</button>
+  <div class="header">
+    <div class="header-title">
+      <div class="header-icon">🛡️</div>
+      <span>VirusTotal Scanner</span>
+    </div>
+    <div class="header-actions">
+      <button id="options" class="btn btn-icon" title="Options">⚙️</button>
+    </div>
   </div>
 
-  <h4>Derniers scans</h4>
-  <div id="result"><em>Chargement...</em></div>
+  <div class="content">
+    <div class="actions-bar">
+      <input id="filepicker" type="file">
+      <button id="pick" class="btn btn-primary">
+        📁 Scanner un fichier
+      </button>
+      <button id="clear-history" class="btn btn-danger">
+        🗑️ Effacer l'historique
+      </button>
+    </div>
+
+    <div class="section-title">
+      📊 Historique des scans
+    </div>
+
+    <div id="result" class="loading">Chargement</div>
+  </div>
 
   <script src="popup.js"></script>
 </body>
