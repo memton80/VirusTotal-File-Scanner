@@ -1,19 +1,372 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>VT Scanner — Options</title>
-<style>body{font-family:system-ui;padding:16px;} input{width:100%;padding:8px;margin:8px 0}</style>
+  <meta charset="utf-8">
+  <title>VirusTotal Scanner — Options</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+      background: #f9f9fb;
+      color: #0c0c0d;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0060df 0%, #003eaa 100%);
+      color: white;
+      padding: 32px 40px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .header-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-left: 64px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: -20px auto 40px;
+      padding: 0 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 1px 4px rgba(12, 12, 13, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #0c0c0d;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #0c0c0d;
+      font-size: 14px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d7d7db;
+      border-radius: 4px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      background: white;
+      transition: all 0.2s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #0060df;
+      box-shadow: 0 0 0 3px rgba(0, 96, 223, 0.1);
+    }
+
+    .form-input::placeholder {
+      color: #b1b1b3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, sans-serif;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: #737373;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0060df;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #003eaa;
+    }
+
+    .btn-primary:active {
+      background: #002275;
+    }
+
+    .btn-secondary {
+      background: #ededf0;
+      color: #0c0c0d;
+    }
+
+    .btn-secondary:hover {
+      background: #d7d7db;
+    }
+
+    .btn-danger {
+      background: #d70022;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #a4000f;
+    }
+
+    .info-box {
+      background: #e3f9ff;
+      border-left: 4px solid #0060df;
+      padding: 16px;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .info-box-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #003eaa;
+    }
+
+    .info-box-text {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #0c0c0d;
+    }
+
+    .info-box-text a {
+      color: #0060df;
+      text-decoration: none;
+    }
+
+    .info-box-text a:hover {
+      text-decoration: underline;
+    }
+
+    .warning-box {
+      background: #fff4e5;
+      border-left: 4px solid #ff9400;
+    }
+
+    .warning-box .info-box-title {
+      color: #cc5d00;
+    }
+
+    .success-message {
+      background: #e3f9e1;
+      border-left: 4px solid #058b00;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-top: 16px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .error-message {
+      background: #ffe8e8;
+      border-left: 4px solid #d70022;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-top: 16px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: #ededf0;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.success {
+      background: #e3f9e1;
+      color: #058b00;
+    }
+  </style>
 </head>
 <body>
-  <h2>Options — VirusTotal</h2>
-  <label>Clé API (x-apikey)</label>
-  <input id="api" placeholder="Saisis ta clé API VirusTotal (v3)">
-  <div style="margin-top:8px;">
-    <button id="save">Enregistrer</button>
-    <button id="forget">Supprimer la clé</button>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-title">
+        <div class="header-icon">🛡️</div>
+        <span>VirusTotal Scanner</span>
+      </div>
+      <div class="header-subtitle">Configuration de l'extension</div>
+    </div>
   </div>
-  <p>Note: cette extension upload réellement les fichiers vers VirusTotal. Ne téléverse pas de fichiers sensibles sans y réfléchir.</p>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-title">🔑 Clé API VirusTotal</div>
+      
+      <div class="form-group">
+        <label class="form-label" for="api">Clé API (x-apikey)</label>
+        <input 
+          id="api" 
+          class="form-input" 
+          type="text"
+          placeholder="Colle ta clé API VirusTotal ici (64 caractères hexadécimaux)"
+          spellcheck="false"
+          autocomplete="off"
+        >
+        <div class="form-hint">
+          ℹ️ Ta clé est stockée localement dans ton navigateur et n'est jamais partagée
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button id="save" class="btn btn-primary">
+          💾 Enregistrer la clé
+        </button>
+        <button id="forget" class="btn btn-danger">
+          🗑️ Supprimer la clé
+        </button>
+      </div>
+
+      <div id="success-msg" class="success-message">
+        ✅ Clé API enregistrée avec succès !
+      </div>
+
+      <div id="error-msg" class="error-message">
+        ❌ <span id="error-text"></span>
+      </div>
+    </div>
+
+    <div class="card info-box">
+      <div class="info-box-title">📖 Comment obtenir une clé API ?</div>
+      <div class="info-box-text">
+        <ol style="margin-left: 20px; margin-top: 8px;">
+          <li style="margin-bottom: 8px;">
+            Crée un compte gratuit sur <a href="https://www.virustotal.com/" target="_blank">VirusTotal.com</a>
+          </li>
+          <li style="margin-bottom: 8px;">
+            Va dans ton profil → <a href="https://www.virustotal.com/gui/my-apikey" target="_blank">API Key</a>
+          </li>
+          <li style="margin-bottom: 8px;">
+            Copie ta clé API (64 caractères)
+          </li>
+          <li>
+            Colle-la dans le champ ci-dessus
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card warning-box info-box">
+      <div class="info-box-title">⚠️ Limite de l'API gratuite</div>
+      <div class="info-box-text">
+        <strong>Compte gratuit :</strong> 4 requêtes par minute, 500 requêtes par jour<br>
+        <strong>Taille maximale :</strong> 32 MB par fichier<br><br>
+        Cette extension respecte automatiquement ces limites. Pour un usage intensif, 
+        consulte les <a href="https://support.virustotal.com/hc/en-us/articles/115002100149" target="_blank">plans payants</a>.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🔒 Sécurité & Confidentialité</div>
+      <div class="info-box-text">
+        <p style="margin-bottom: 12px;">
+          <strong>⚡ Cette extension :</strong>
+        </p>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+          <li>Upload les fichiers téléchargés vers VirusTotal pour analyse</li>
+          <li>Stocke ta clé API localement (jamais partagée)</li>
+          <li>Ne collecte aucune donnée personnelle</li>
+          <li>Est open-source sur <a href="https://github.com/memton80/VirusTotal-Scanner" target="_blank">GitHub</a></li>
+        </ul>
+        <p style="margin-top: 12px;">
+          <strong>⚠️ Important :</strong> Les fichiers uploadés deviennent publics sur VirusTotal. 
+          Ne scanne pas de fichiers confidentiels !
+        </p>
+      </div>
+    </div>
+  </div>
+
   <script src="options.js"></script>
 </body>
 </html>
