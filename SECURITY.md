@@ -6,7 +6,8 @@
 
 | Version | Supportée / Supported |
 |--------:|:---------------------:|
-| 1.3.x   | ✅ Oui / Yes          |
+|1.7.x    | ✅ Oui / Yes
+| 1.3.x   | ❌ Non / No          |
 | 1.2.x   | ❌ Non / No           |
 | < 1.0   | ❌ Non / No           |
 
