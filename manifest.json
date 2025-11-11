@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
   "name": "VirusTotal File Scanner",
-  "version": "1.7.5",
-  "description": "Scan automatique des fichiers téléchargés via VirusTotal. Sécurisé, avec mode sombre et validation stricte.",
+  "version": "1.7.6",
+  "description": "Scan automatique des fichiers téléchargés via VirusTotal. Sécurisé, avec mode sombre et validation stricte. / Automatic scanning of files uploaded via VirusTotal. Secure, with dark mode and strict validation.",
+  "default_locale": "en",
   
   "permissions": [
     "downloads",
@@ -26,7 +27,7 @@
     "default_icon": {
       "48": "icons/icon-48.png"
     },
-    "default_title": "VirusTotal Scanner",
+    "default_title": "__MSG_popupTitle__",
     "default_popup": "popup.html"
   },
   
@@ -42,12 +43,12 @@
   
   "browser_specific_settings": {
     "gecko": {
-      "id": "{679bb509-5bf5-41e3-9213-652c7a0e14f5}",
+      "id": "{ID_prog}",
       "strict_min_version": "109.0",
       "data_collection_permissions": {
-      "required": ["none"],
-      "optional": []
+        "required": ["none"],
+        "optional": []
+      }
     }
-  }
   }
 }
