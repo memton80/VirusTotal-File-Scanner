@@ -1,12 +1,35 @@
-// === SÉCURITÉ : Validation stricte ===
+// === i18n Helper ===
+function t(key) {
+  return browser.i18n.getMessage(key) || key;
+}
+
+function translatePage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const translation = t(key);
+    
+    if (el.tagName === 'INPUT' && el.type === 'text') {
+      el.placeholder = translation;
+    } else {
+      el.textContent = translation;
+    }
+  });
+  
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    el.title = t(key);
+  });
+  
+  document.title = t('optionsTitle');
+}
+
+// === SÉCURITÉ : Validation ===
 function isValidVTApiKey(key) {
-  // Format attendu : exactement 64 caractères hexadécimaux
   if (typeof key !== 'string') return false;
   if (key.length !== 64) return false;
   return /^[a-f0-9]{64}$/i.test(key);
 }
 
-// Échappement HTML pour prévenir XSS
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
@@ -46,29 +69,27 @@ function showError(message) {
   setTimeout(() => errorMsg.classList.remove('show'), 5000);
 }
 
-// === SAUVEGARDE CLÉCURISÉE ===
+// === SAUVEGARDE CLÉ ===
 document.getElementById('save').addEventListener('click', async () => {
   const val = document.getElementById('api').value.trim();
   const saveBtn = document.getElementById('save');
+  const saveBtnSpan = saveBtn.querySelector('span');
   
-  // Validation stricte
   if (!val) {
-    showError('La clé API ne peut pas être vide.');
+    showError(t('errorApiKeyEmpty'));
     return;
   }
   
   if (!isValidVTApiKey(val)) {
-    showError('Format de clé invalide. La clé VirusTotal doit contenir exactement 64 caractères hexadécimaux (0-9, a-f).');
+    showError(t('errorApiKeyInvalid'));
     return;
   }
   
-  // Désactive le bouton pendant la validation
   saveBtn.disabled = true;
-  saveBtn.textContent = '🔄 Validation...';
+  saveBtnSpan.textContent = t('btnValidating');
   
-  // Test de la clé avec timeout de sécurité
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
+  const timeoutId = setTimeout(() => controller.abort(), 10000);
   
   try {
     const testResponse = await fetch('https://www.virustotal.com/api/v3/users/current', {
@@ -79,16 +100,16 @@ document.getElementById('save').addEventListener('click', async () => {
     clearTimeout(timeoutId);
     
     if (testResponse.status === 401) {
-      showError('Clé API invalide ou expirée. Vérifie ta clé sur virustotal.com/gui/my-apikey');
+      showError(t('errorApiKeyUnauthorized'));
       saveBtn.disabled = false;
-      saveBtn.textContent = '💾 Enregistrer la clé';
+      saveBtnSpan.textContent = t('btnSaveKey');
       return;
     }
     
     if (testResponse.status === 403) {
-      showError('Accès refusé. Ta clé API pourrait être restreinte ou bloquée.');
+      showError(t('errorApiKeyForbidden'));
       saveBtn.disabled = false;
-      saveBtn.textContent = '💾 Enregistrer la clé';
+      saveBtnSpan.textContent = t('btnSaveKey');
       return;
     }
     
@@ -96,38 +117,36 @@ document.getElementById('save').addEventListener('click', async () => {
       console.warn('Test API warning:', testResponse.status);
     }
     
-    // Sauvegarde sécurisée dans le storage local (chiffré par Firefox)
     await browser.storage.local.set({ vt_api_key: val });
-    showSuccess('✅ Clé API enregistrée et validée avec succès !');
+    showSuccess(t('successApiKeySaved'));
     
-    // Efface le champ pour sécurité (affichage masqué)
     document.getElementById('api').value = '';
-    document.getElementById('api').placeholder = `Clé enregistrée: ${val.slice(0, 8)}${'*'.repeat(48)}${val.slice(-8)}`;
+    document.getElementById('api').placeholder = `${t('placeholderApiKeySaved')}: ${val.slice(0, 8)}${'*'.repeat(48)}${val.slice(-8)}`;
     
   } catch (err) {
     clearTimeout(timeoutId);
     console.error('Erreur validation clé:', err);
     
     if (err.name === 'AbortError') {
-      showError('Timeout: impossible de valider la clé (réseau lent). Réessaie.');
+      showError(t('errorApiKeyTimeout'));
     } else {
-      showError('Impossible de valider la clé (erreur réseau). Elle a été enregistrée quand même.');
+      showError(t('errorApiKeyNetwork'));
       await browser.storage.local.set({ vt_api_key: val });
     }
   } finally {
     saveBtn.disabled = false;
-    saveBtn.textContent = '💾 Enregistrer la clé';
+    saveBtnSpan.textContent = t('btnSaveKey');
   }
 });
 
-// === SUPPRESSION SÉCURISÉE ===
+// === SUPPRESSION CLÉMECURISÉE ===
 document.getElementById('forget').addEventListener('click', async () => {
-  if (!confirm('⚠️ ATTENTION : Supprimer la clé API stockée ?\n\nTu devras la ressaisir pour scanner des fichiers.\n\nCette action est irréversible.')) return;
+  if (!confirm(t('confirmDeleteKey'))) return;
   
   await browser.storage.local.remove('vt_api_key');
   document.getElementById('api').value = '';
-  document.getElementById('api').placeholder = 'Colle ta clé API VirusTotal ici';
-  showSuccess('🗑️ Clé supprimée avec succès.');
+  document.getElementById('api').placeholder = t('placeholderApiKey');
+  showSuccess(t('successApiKeyDeleted'));
 });
 
 // === DARK MODE TOGGLE ===
@@ -135,25 +154,22 @@ document.getElementById('dark-mode-toggle').addEventListener('change', toggleThe
 
 // === CHARGEMENT INITIAL ===
 (async () => {
-  // Charge le thème
+  translatePage();
   await loadTheme();
   
-  // Charge la clé existante (masquée)
   const s = await browser.storage.local.get('vt_api_key');
   if (s.vt_api_key && isValidVTApiKey(s.vt_api_key)) {
     const key = s.vt_api_key;
-    // Affiche seulement les 8 premiers et 8 derniers caractères
     const masked = `${key.slice(0, 8)}${'*'.repeat(48)}${key.slice(-8)}`;
-    document.getElementById('api').placeholder = `Clé actuelle: ${masked}`;
-    document.getElementById('api').value = ''; // Ne pré-remplit pas pour sécurité
+    document.getElementById('api').placeholder = `${t('placeholderApiKeyCurrent')}: ${masked}`;
+    document.getElementById('api').value = '';
   }
 })();
 
-// === PROTECTION CONTRE COPIER-COLLER DE SCRIPTS ===
+// === PROTECTION COPIER-COLLER ===
 document.addEventListener('paste', (e) => {
   const target = e.target;
   if (target.id === 'api') {
-    // Nettoie le contenu collé
     setTimeout(() => {
       target.value = target.value.trim().replace(/[^a-f0-9]/gi, '');
     }, 0);
