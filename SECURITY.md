@@ -1,78 +1,75 @@
-# 🔒 Politique de sécurité — VirusTotal-Scanner
+# 🛡️ Politique de sécurité / Security Policy
+
+**🇫🇷 Français**
+
+La sécurité de **VirusTotal File Scanner** est une priorité. Nous prenons la protection des données de nos utilisateurs très au sérieux.
+
+**🇬🇧 English**
+
+The security of **VirusTotal File Scanner** is a priority. We take the protection of our users' data very seriously.
 
 ---
 
-## 📦 Versions prises en charge / Supported Versions
+## Signaler une vulnérabilité / Reporting a Vulnerability
 
-| Version | Supportée / Supported |
-|--------:|:---------------------:|
-|1.7.x    | ✅ Oui / Yes
-| 1.3.x   | ❌ Non / No          |
-| 1.2.x   | ❌ Non / No           |
-| < 1.0   | ❌ Non / No           |
+**🇫🇷** Nous apprécions l'aide de la communauté pour identifier et corriger les failles de sécurité. Si vous pensez avoir découvert un problème de sécurité, veuillez nous en informer de manière responsable.
 
-Les correctifs de sécurité sont appliqués uniquement sur les branches **stables et récentes** (`main`, `1.x`).  
-Security fixes are only applied to **stable, recent** branches (`main`, `1.x`).
+**🇬🇧** We appreciate the help of the community in identifying and correcting security flaws. If you believe you have discovered a security issue, please inform us responsibly.
 
----
+### 🚫 NE PAS signaler via les "Issues" publiques / DO NOT report via public "Issues"
 
-## 🐛 Signaler une vulnérabilité / Reporting a Vulnerability
+**🇫🇷** N'ouvrez **PAS** d'issue publique sur GitHub pour signaler une faille de sécurité. Les "Issues" sont visibles par tous et pourraient permettre à des acteurs malveillants d'exploiter la faille avant qu'un correctif ne soit appliqué.
 
-### 🇫🇷 En français
-Si tu découvres une faille dans **VirusTotal-Scanner**, **n’ouvre pas d’issue publique** contenant des détails exploitables ou des données sensibles (clés API, échantillons, tokens). Utilise plutôt une des méthodes suivantes :
+**🇬🇧** Do **NOT** open a public GitHub issue to report a security vulnerability. Public issues can be seen by everyone and could allow malicious actors to exploit the vulnerability before a patch is applied.
 
-- 📬 Via le **formulaire de sécurité GitHub** du dépôt : [Security Advisory](https://github.com/memton80/VirusTotal-Scanner/security/advisories)  
-- 🔗 Ou contacte directement le mainteneur : **[@memton80](https://github.com/memton80)**
+### ✅ Comment signaler / How to Report
 
-#### ⏱ Délais attendus :
-- Réponse initiale sous **72 heures**
-- Analyse complète sous **7 jours**
-- Correctif publié sous **14 jours** (généralement)
+**🇫🇷** Veuillez signaler les vulnérabilités potentielles de l'une des manières suivantes :
+
+**🇬🇧** Please report potential vulnerabilities in one of the following ways:
 
 ---
 
-### 🇬🇧 In English
-If you find a vulnerability in **VirusTotal-Scanner**, **please do not open a public issue** exposing exploit details or sensitive data (API keys, samples, tokens). Use one of the following channels:
+**Option 1 (Recommandée / Recommended): Signalements de sécurité privés GitHub / Private Vulnerability Reporting**
 
-- 📬 Through the repository’s **GitHub Security Advisory form**: [Security Advisory](https://github.com/memton80/VirusTotal-Scanner/security/advisories)  
-- 🔗 Or contact the maintainer directly: **[@memton80](https://github.com/memton80)**
+**🇫🇷**
+* Allez dans l'onglet **"Security"** (Sécurité) du dépôt.
+* Cliquez sur **"Report a vulnerability"** (Signaler une vulnérabilité).
+* Remplissez le formulaire avec le plus de détails possible.
 
-#### ⏱ Expected response time:
-- Initial reply within **72 hours**
-- Full investigation within **7 days**
-- Patch released within **14 days** (typically)
-
----
-
-## 🧩 Processus après signalement / After-Report Process
-
-| Étape / Step | Description |
-|-------------:|:-----------|
-| 🔍 Analyse / Review | Reproduction et évaluation en interne. Impact sur les utilisateurs et les clés API vérifié. |
-| 🧱 Correctif / Fix | Développement du correctif sur une branche privée si nécessaire. |
-| 🚀 Publication / Release | Publication d’une release / advisory publique une fois le correctif prêt. |
-| 💬 Crédits / Credits | Le reporter peut être crédité s’il le souhaite. |
+**🇬🇧**
+* Go to the **"Security"** tab of the repository.
+* Click on **"Report a vulnerability"**.
+* Fill out the form with as much detail as possible.
 
 ---
 
-## 🧱 Bonnes pratiques / Best Practices
+### Ce qu'il faut inclure / What to Include
 
-### 🇫🇷 Pour les contributeurs & utilisateurs
-- 🔐 **Ne publie jamais de clés API, tokens ou secrets** dans un issue, PR ou code accessible publiquement.  
-- 🧪 **Teste dans un environnement isolé** (VM, conteneur, sandbox). Ne teste pas en production avec des clés réelles.  
-- 🚫 **Ne partage pas publiquement d’échantillons malveillants** — utilise des canaux privés et sécurisés pour l’échange si nécessaire.  
-- 🔄 Utilise des **pull requests** pour les améliorations fonctionnelles ; n’utilise pas une PR pour divulguer une vulnérabilité.  
-- 📝 Fournis des **logs minimalistes** lors du signalement : seulement ce qui est nécessaire pour reproduire le problème, en supprimant toute donnée sensible.  
-- ⚖️ Respecte les conditions d’utilisation de l’API VirusTotal et les lois applicables quand tu testes des fichiers ou des URL.
+**🇫🇷** Pour nous aider à trier et à corriger la faille le plus rapidement possible, veuillez inclure les informations suivantes :
 
-### 🇬🇧 For contributors & users
-- 🔐 **Never publish API keys, tokens or secrets** in issues, PRs or public code.  
-- 🧪 **Test in an isolated environment** (VM, container, sandbox). Avoid running tests in production with live keys.  
-- 🚫 **Do not share malware samples publicly** — use secure private channels if sample exchange is necessary.  
-- 🔄 Use **pull requests** for feature fixes; don’t disclose vulnerabilities through PRs.  
-- 📝 Provide **minimal supporting logs** when reporting — remove any sensitive data.  
-- ⚖️ Follow VirusTotal’s API terms of service and applicable laws when scanning files or URLs.
+**🇬🇧** To help us triage and fix the vulnerability as quickly as possible, please include the following information:
+
+* **Type de vulnérabilité** / **Type of vulnerability** (ex: XSS, Data Leak, etc.).
+* **Description détaillée** / **Detailed description** of the vulnerability.
+* **Version** de l'extension concernée / **Version** of the extension affected.
+* **Étapes pour reproduire** (PoC) / **Steps to reproduce** (PoC).
+* **Impact potentiel** / **Potential impact**.
+
+### Notre engagement / Our Commitment
+
+**🇫🇷** Nous nous engageons à :
+* Accuser réception de votre rapport (si signalé par email).
+* Vous tenir informé de l'avancement de la correction.
+* Vous créditer publiquement pour votre découverte (sauf si vous souhaitez rester anonyme) une fois la faille corrigée.
+
+**🇬🇧** We commit to:
+* Acknowledge receipt of your report (if reported via email).
+* Keep you informed of the progress of the fix.
+* Credit you publicly for your discovery (unless you wish to remain anonymous) once the vulnerability is fixed.
 
 ---
 
-© 2025 [memton80](https://github.com/memton80) — **VirusTotal-Scanner**
+**🇫🇷** Nous vous demandons de ne pas divulguer publiquement la vulnérabilité tant qu'un correctif n'a pas été publié.
+
+**🇬🇧** We ask that you do not publicly disclose the vulnerability until a patch has been released.
