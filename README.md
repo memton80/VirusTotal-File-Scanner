@@ -1,84 +1,114 @@
+# 🛡️ VirusTotal File Scanner
 
-# 🛡️ VirusTotal File Scanner / VirusTotal File Scanner
+[![Version Firefox](https://img.shields.io/amo/v/virustotal-file-scanner?label=Firefox&style=for-the-badge&logo=firefox)](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
+[![Licence](https://img.shields.io/github/license/memton80/VirusTotal-File-Scanner?style=for-the-badge&label=Licence)](https://github.com/memton80/VirusTotal-File-Scanner/blob/main/LICENSE)
+[![Statut](https://img.shields.io/badge/Statut-Alpha-red?style=for-the-badge)](https://github.com/memton80/VirusTotal-File-Scanner)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Built%20for-Firefox-1f425f?style=for-the-badge">
-  <img src="https://img.shields.io/badge/License-GPL%203.0-green?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Status-Alpha-red?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Language-FR-orange?style=for-the-badge">
-</p>
+**🇫🇷 Français**
+
+**VirusTotal File Scanner** est une extension pour **Firefox** permettant d'analyser rapidement et simplement n'importe quel fichier via l'API publique de [VirusTotal](https://www.virustotal.com/).
+
+Cette extension ajoute une icône à votre barre d'outils. Cliquez dessus, sélectionnez un fichier, et l'extension l'enverra à VirusTotal pour analyse et vous affichera le résultat.
 
 ---
 
-**🇫🇷**  
-**VirusTotal File Scanner** est une extension **Firefox** permettant d’analyser rapidement des fichiers via l’API officielle [VirusTotal](https://www.virustotal.com/).  
-Elle indique si un fichier est sûr ou suspect, directement depuis votre navigateur.  
-> [!IMPORTANT]
-> ⚠️ Pour le moment, l’extension n’est disponible qu’en **français**.
+**🇬🇧 English**
 
-**🇬🇧**  
-**VirusTotal File Scanner** is a **Firefox** extension that quickly scans files using the official [VirusTotal](https://www.virustotal.com/) API.  
-It shows whether a file is safe or suspicious, directly in your browser.  
-> [!IMPORTANT]
-> ⚠️ Currently, the extension is available **only in French**.
+**VirusTotal File Scanner** is a **Firefox** extension that allows you to quickly and easily scan any file using the public [VirusTotal](https://www.virustotal.com/) API.
+
+This extension adds an icon to your toolbar. Click it, select a file, and the extension will send it to VirusTotal for analysis and display the result.
+
+---
+
+## 🚀 Fonctionnalités / Features
+
+**🇫🇷**
+* **Analyse rapide :** Soumettez des fichiers à VirusTotal en deux clics.
+* **Intégration simple :** S'intègre directement dans la barre d'outils de Firefox.
+* **Léger et rapide :** Aucune ressource superflue.
+
+**🇬🇧**
+* **Quick Scan:** Submit files to VirusTotal in just two clicks.
+* **Simple Integration:** Fits directly into your Firefox toolbar.
+* **Lightweight and Fast:** No unnecessary resources.
 
 ---
 
 ## ⚙️ Installation / Installation
 
-**🇫🇷**  
-Disponible uniquement sur Firefox :  
-[**Installer depuis Mozilla Add-ons**](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
+### Prérequis / Prerequisites
 
-**🇬🇧**  
-Available only on Firefox:  
-[**Install from Mozilla Add-ons**](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
+**🇫🇷**
+* Navigateur [Firefox](https://www.mozilla.org/firefox/new/).
+* Une clé API VirusTotal (obtenue gratuitement sur [leur site](https://www.virustotal.com/)).
 
-Une fois installée / Once installed :
+**🇬🇧**
+* [Firefox](https://www.mozilla.org/firefox/new/) browser.
+* A VirusTotal API Key (get one for free from [their site](https://www.virustotal.com/)).
 
-1. Clique sur l’icône 🧩 dans la barre d’outils / Click on the 🧩 icon in the toolbar  
-2. Sélectionne le fichier à analyser / Select the file you want to scan  
-3. L’extension contacte VirusTotal et affiche le résultat / The extension sends it to VirusTotal and shows the result
+### 1. Installation (Mozilla Add-ons)
 
----
+**🇫🇷**
+Le moyen le plus simple est d'installer l'extension depuis le catalogue officiel :
 
-## ⚠️ Avertissement / Disclaimer
+[**Installer depuis le Mozilla Add-ons Store**](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
 
-**🇫🇷**  
-- **Statut : Alpha** — l’extension est en cours de développement et peut contenir des bugs ou fonctionnalités manquantes  
-- Compatible uniquement avec **Firefox**  
-- Non affilié à Google ou VirusTotal  
+**🇬🇧**
+The easiest way is to install the extension from the official add-ons store:
 
-**🇬🇧**  
-- **Status: Alpha** — the extension is under development and may contain bugs or missing features  
-- Only compatible with **Firefox**  
-- Not affiliated with Google or VirusTotal  
+[**Install from the Mozilla Add-ons Store**](https://addons.mozilla.org/en-US/firefox/addon/virustotal-file-scanner/)
 
-**FR / EN**  
-L’utilisation se fait sous la responsabilité de l’utilisateur. Respectez les limites et conditions de l’API VirusTotal :  
-[https://support.virustotal.com/hc/en-us/articles/115002100149](https://support.virustotal.com/hc/en-us/articles/115002100149)
+### 2. Configuration
 
----
+**🇫🇷**
+1. Après l'installation, faites un clic droit sur l'icône de l'extension et ouvrez la page **"Options"**.
+2. Entrez votre clé API VirusTotal personnelle dans le champ prévu à cet effet.
+3. Enregistrez. L'extension est prête à l'emploi.
 
-## 💡 Contribution / Contribution
-
-**🇫🇷**  
-Ouvre une issue ou pull request sur le [GitHub](https://github.com/memton80/VirusTotal-Scanner) pour proposer des améliorations.
-
-**🇬🇧**  
-Open an issue or pull request on [GitHub](https://github.com/memton80/VirusTotal-Scanner) to suggest improvements.
+**🇬🇧**
+1. After installation, right-click the extension icon and open the **"Options"** page.
+2. Enter your personal VirusTotal API key in the required field.
+3. Save. The extension is ready to use.
 
 ---
 
-## 🔜 Roadmap / To-Do
+## ⚠️ Avertissement / Warning
 
-- [x] Première version Alpha / First Alpha release  
-- [ ] Amélioration UI et UX / Improve UI and UX  
-- [ ] Gestion avancée des fichiers et des résultats / Advanced file & result management
-- [ ] Mode sombre / Dark mode
+* **Statut : Alpha / Status: Alpha**
+    **🇫🇷** Cette extension est en cours de développement. Des bugs ou des fonctionnalités manquantes sont possibles.
+    **🇬🇧** This extension is under development. Bugs or missing features are possible.
 
-## V2 prochainement / soon
+* **API VirusTotal / VirusTotal API**
+    **🇫🇷** Cette extension utilise l'API publique de VirusTotal. Vous êtes soumis aux [limitations et conditions d'utilisation](https://support.virustotal.com/hc/en-us/articles/115002100149) de ce service (ex: nombre de requêtes par minute).
+    **🇬🇧** This extension uses the public VirusTotal API. You are subject to the [terms of use and limitations](https://support.virustotal.com/hc/en-us/articles/115002100149) of that service (e.g., number of requests per minute).
 
+* **Affiliation / Affiliation**
+    **🇫🇷** Ce projet n'est pas affilié à Google ou VirusTotal.
+    **🇬🇧** This project is not affiliated with Google or VirusTotal.
 
 ---
-[![Security Policy](https://img.shields.io/badge/Security-Policy-blue?style=flat-square&logo=github)](#)
+
+## 💡 Contribuer / Contributing
+
+**🇫🇷**
+Les contributions sont les bienvenues ! Que ce soit pour signaler un bug, proposer une fonctionnalité ou améliorer le code.
+
+**🇬🇧**
+Contributions are welcome! Whether it's reporting a bug, suggesting a feature, or improving the code.
+
+1. **Fork** the repository.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a **Pull Request**.
+
+---
+
+## 🔜 Feuille de route / Roadmap
+
+* [x] Première version Alpha fonctionnelle. / First functional Alpha release.
+* [x] Amélioration de l'interface utilisateur (UI) et de l'expérience (UX). / Improve UI and UX.
+* [x] Gestion avancée des résultats d'analyse (rapport détaillé). / Advanced management of scan results (detailed report).
+* [x] Ajout d'un mode sombre. / Add dark mode.
+* [x] Traduction en anglais et autres langues (`_locales`). / Translation into English and other languages (`_locales`).
+* [ ] **Version 2 (V2)**
