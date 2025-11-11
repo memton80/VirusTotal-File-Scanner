@@ -1,4 +1,26 @@
-// === SÉCURITÉ : Échappement HTML strict (CRITIQUE) ===
+// === i18n Helper ===
+function t(key) {
+  return browser.i18n.getMessage(key) || key;
+}
+
+function translatePage() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const key = el.getAttribute('data-i18n-title');
+    el.title = t(key);
+  });
+  
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = t(key);
+  });
+}
+
+// === SÉCURITÉ : Échappement HTML ===
 function escapeHtml(text) {
   if (text === null || text === undefined) return '';
   const div = document.createElement('div');
@@ -6,7 +28,6 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// Validation des nombres
 function sanitizeNumber(value, defaultValue = 0) {
   const num = parseInt(value, 10);
   return isNaN(num) ? defaultValue : Math.max(0, num);
@@ -19,6 +40,61 @@ async function loadTheme() {
   document.body.classList.toggle('dark-mode', isDark);
 }
 
+// === ÉTAT DE LA SURVEILLANCE ===
+async function getScanningState() {
+  try {
+    const result = await browser.storage.local.get('scanning_enabled');
+    return result.scanning_enabled !== false;
+  } catch (err) {
+    console.error('Erreur récupération état:', err);
+    return true;
+  }
+}
+
+async function setScanningState(enabled) {
+  try {
+    await browser.storage.local.set({ scanning_enabled: enabled });
+    await updateUI();
+    // L'icône sera mise à jour automatiquement par le listener dans background.js
+  } catch (err) {
+    console.error('Erreur sauvegarde état:', err);
+  }
+}
+
+async function updateUI() {
+  const enabled = await getScanningState();
+  const toggleBtn = document.getElementById('toggle-scan');
+  const header = document.getElementById('header');
+  const headerText = document.getElementById('header-text');
+  const statusBanner = document.getElementById('status-banner');
+  
+  if (enabled) {
+    // Utilise textContent au lieu de innerHTML
+    toggleBtn.textContent = '';
+    const icon = document.createTextNode('⏸️ ');
+    const text = document.createTextNode(t('btnPause'));
+    toggleBtn.appendChild(icon);
+    toggleBtn.appendChild(text);
+    
+    toggleBtn.className = 'btn btn-pause';
+    header.classList.remove('paused');
+    headerText.textContent = t('popupTitle');
+    statusBanner.classList.remove('show');
+  } else {
+    // Utilise textContent au lieu de innerHTML
+    toggleBtn.textContent = '';
+    const icon = document.createTextNode('▶️ ');
+    const text = document.createTextNode(t('btnResume'));
+    toggleBtn.appendChild(icon);
+    toggleBtn.appendChild(text);
+    
+    toggleBtn.className = 'btn btn-resume';
+    header.classList.add('paused');
+    headerText.textContent = `${t('popupTitle')} (⏸️)`;
+    statusBanner.classList.add('show');
+  }
+}
+
 // === NAVIGATION ===
 document.getElementById('options').addEventListener('click', () => {
   try { 
@@ -29,128 +105,22 @@ document.getElementById('options').addEventListener('click', () => {
   }
 });
 
-// === FILE PICKER ===
-const filepicker = document.getElementById('filepicker');
-document.getElementById('pick').addEventListener('click', () => filepicker.click());
+// === TOGGLE SURVEILLANCE ===
+document.getElementById('toggle-scan').addEventListener('click', async () => {
+  const currentState = await getScanningState();
+  await setScanningState(!currentState);
+});
 
 // === CLEAR HISTORY ===
 document.getElementById('clear-history').addEventListener('click', async () => {
-  if (!confirm("⚠️ Effacer l'historique des scans ?\n\nCette action est irréversible.")) return;
+  if (!confirm(t('confirmClearHistory'))) return;
   
   try {
     await browser.storage.local.remove(["scan_history", "last_scan_result"]);
     await renderLast();
   } catch (err) {
     console.error('Erreur suppression historique:', err);
-    alert('❌ Erreur lors de la suppression de l\'historique.');
-  }
-});
-
-// === FILE UPLOAD ===
-filepicker.addEventListener('change', async (ev) => {
-  const f = ev.target.files[0];
-  if (!f) return;
-  
-  // Validation du nom de fichier (sécurité)
-  const safeName = String(f.name).substring(0, 255).replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
-  
-  // Validation de la taille
-  const maxSize = 32 * 1024 * 1024; // 32MB
-  if (f.size > maxSize) {
-    alert(`❌ Fichier trop volumineux (${(f.size / 1024 / 1024).toFixed(2)} MB)\n\nLimite : 32 MB pour l'API gratuite VirusTotal.`);
-    filepicker.value = ''; // Reset
-    return;
-  }
-  
-  if (f.size === 0) {
-    alert('❌ Le fichier est vide (0 bytes).');
-    filepicker.value = '';
-    return;
-  }
-
-  if (!confirm(`📤 Upload vers VirusTotal\n\nFichier : ${safeName}\nTaille : ${(f.size / 1024).toFixed(2)} KB\n\n⚠️ ATTENTION : Le fichier deviendra PUBLIC sur VirusTotal.\n\nContinuer ?`)) {
-    filepicker.value = '';
-    return;
-  }
-
-  // Récupération de la clé API
-  let apiKey;
-  try {
-    const result = await browser.storage.local.get('vt_api_key');
-    apiKey = result.vt_api_key;
-    
-    if (!apiKey || !/^[a-f0-9]{64}$/i.test(apiKey)) {
-      alert("❌ Clé API manquante ou invalide.\n\nVa dans les options (⚙️) pour configurer ta clé VirusTotal."); 
-      filepicker.value = '';
-      return; 
-    }
-  } catch (err) {
-    console.error('Erreur récupération clé:', err);
-    alert('❌ Erreur lors de la récupération de la clé API.');
-    filepicker.value = '';
-    return;
-  }
-
-  const fd = new FormData();
-  fd.append('file', f, safeName);
-
-  // Affichage du chargement
-  const resultDiv = document.getElementById('result');
-  resultDiv.innerHTML = '<div class="loading">📤 Upload en cours...</div>';
-
-  // Upload avec timeout
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 120000); // 2 minutes timeout
-
-  try {
-    const resp = await fetch('https://www.virustotal.com/api/v3/files', {
-      method: 'POST',
-      headers: { 'x-apikey': apiKey },
-      body: fd,
-      signal: controller.signal
-    });
-    
-    clearTimeout(timeoutId);
-    
-    if (!resp.ok) {
-      const errorData = await resp.json().catch(() => ({}));
-      const errorMsg = errorData?.error?.message || `Erreur HTTP ${resp.status}`;
-      alert(`❌ Échec de l'upload (${resp.status})\n\n${errorMsg}`);
-      await renderLast();
-      filepicker.value = '';
-      return;
-    }
-    
-    const j = await resp.json();
-    
-    // Sauvegarde du résultat
-    await browser.storage.local.set({ 
-      last_scan_result: { 
-        uploaded: true, 
-        response: j, 
-        filename: safeName, 
-        timestamp: Date.now() 
-      }
-    });
-    
-    resultDiv.innerHTML = '<div class="success-upload">✅ Upload réussi ! Le scan peut prendre quelques secondes...</div>';
-    
-    // Rafraîchit l'affichage après 2 secondes
-    setTimeout(() => renderLast(), 2000);
-    
-  } catch (err) {
-    clearTimeout(timeoutId);
-    console.error('Erreur upload:', err);
-    
-    if (err.name === 'AbortError') {
-      alert('⏱️ Timeout : L\'upload a pris trop de temps. Réessaie avec une connexion plus rapide.');
-    } else {
-      alert('❌ Erreur réseau : ' + err.message);
-    }
-    
-    await renderLast();
-  } finally {
-    filepicker.value = ''; // Reset pour permettre re-upload du même fichier
+    alert(t('errorClearHistory'));
   }
 });
 
@@ -163,30 +133,43 @@ async function renderLast() {
     const history = s.scan_history || [];
 
     if (history.length === 0) {
-      out.innerHTML = `
-        <div class="empty-state">
-          <div class="empty-state-icon">📭</div>
-          <div class="empty-state-text">Aucun scan enregistré</div>
-          <div class="empty-state-subtext">Clique sur "Scanner un fichier" pour commencer</div>
-        </div>
-      `;
+      // Utilise des éléments DOM au lieu de innerHTML
+      out.textContent = '';
+      
+      const emptyState = document.createElement('div');
+      emptyState.className = 'empty-state';
+      
+      const icon = document.createElement('div');
+      icon.className = 'empty-state-icon';
+      icon.textContent = '📭';
+      
+      const title = document.createElement('div');
+      title.className = 'empty-state-text';
+      title.textContent = t('emptyStateTitle');
+      
+      const subtext = document.createElement('div');
+      subtext.className = 'empty-state-subtext';
+      subtext.textContent = t('emptyStateSubtext');
+      
+      emptyState.appendChild(icon);
+      emptyState.appendChild(title);
+      emptyState.appendChild(subtext);
+      out.appendChild(emptyState);
       return;
     }
 
-    out.innerHTML = '<div class="history-list"></div>';
-    const listContainer = out.querySelector('.history-list');
+    out.textContent = '';
+    const listContainer = document.createElement('div');
+    listContainer.className = 'history-list';
     
     for (const r of history) {
-      // Échappement et validation de TOUTES les données
       const safeFilename = escapeHtml(r.filename || "fichier_inconnu");
-      const safeDate = escapeHtml(new Date(r.timestamp || Date.now()).toLocaleString('fr-FR'));
+      const safeDate = escapeHtml(new Date(r.timestamp || Date.now()).toLocaleString());
       const detections = sanitizeNumber(r.detections, 0);
       const totalEngines = sanitizeNumber(r.totalEngines, 0);
       
-      // Détermination du statut
       let statusClass = 'safe';
       let statusEmoji = '✅';
-      let statusText = 'Sûr';
       let badgeClass = 'safe';
       
       if (totalEngines > 0) {
@@ -195,12 +178,10 @@ async function renderLast() {
         if (detectionRate >= 10) {
           statusClass = 'malicious';
           statusEmoji = '🚨';
-          statusText = 'Dangereux';
           badgeClass = 'malicious';
         } else if (detectionRate > 0) {
           statusClass = 'suspicious';
           statusEmoji = '⚠️';
-          statusText = 'Suspect';
           badgeClass = 'suspicious';
         }
       }
@@ -208,27 +189,76 @@ async function renderLast() {
       const itemDiv = document.createElement('div');
       itemDiv.className = `history-item ${statusClass}`;
       
-      let itemHTML = `
-        <div class="item-header">
-          <div class="item-filename">
-            📄 <span title="${safeFilename}">${safeFilename}</span>
-          </div>
-          <div class="item-status">${statusEmoji}</div>
-        </div>
-        <div class="item-meta">
-          <div class="item-date">
-            🕒 ${safeDate}
-          </div>
-          <div class="detection-badge ${badgeClass}">
-            ${detections}/${totalEngines} détections
-          </div>
-        </div>
-      `;
+      // Header
+      const itemHeader = document.createElement('div');
+      itemHeader.className = 'item-header';
       
-      // Détails des moteurs (sécurisé)
+      const itemFilename = document.createElement('div');
+      itemFilename.className = 'item-filename';
+      itemFilename.textContent = '📄 ';
+      
+      const filenameSpan = document.createElement('span');
+      filenameSpan.title = safeFilename;
+      filenameSpan.textContent = safeFilename;
+      itemFilename.appendChild(filenameSpan);
+      
+      const itemStatus = document.createElement('div');
+      itemStatus.className = 'item-status';
+      itemStatus.textContent = statusEmoji;
+      
+      itemHeader.appendChild(itemFilename);
+      itemHeader.appendChild(itemStatus);
+      
+      // Meta
+      const itemMeta = document.createElement('div');
+      itemMeta.className = 'item-meta';
+      
+      const itemDate = document.createElement('div');
+      itemDate.className = 'item-date';
+      itemDate.textContent = `🕒 ${safeDate}`;
+      
+      const detectionBadge = document.createElement('div');
+      detectionBadge.className = `detection-badge ${badgeClass}`;
+      detectionBadge.textContent = `${detections}/${totalEngines} ${t('detections')}`;
+      
+      itemMeta.appendChild(itemDate);
+      itemMeta.appendChild(detectionBadge);
+      
+      itemDiv.appendChild(itemHeader);
+      itemDiv.appendChild(itemMeta);
+      
+      // Details par moteur
       if (r.perEngine && typeof r.perEngine === 'object') {
-        itemHTML += '<details><summary>🔍 Détails par moteur antivirus</summary>';
-        itemHTML += '<div class="engine-table"><table><thead><tr><th>Moteur</th><th>Résultat</th><th>Statut</th></tr></thead><tbody>';
+        const details = document.createElement('details');
+        
+        const summary = document.createElement('summary');
+        summary.textContent = `🔍 ${t('detailsEngines')}`;
+        details.appendChild(summary);
+        
+        const engineTableDiv = document.createElement('div');
+        engineTableDiv.className = 'engine-table';
+        
+        const table = document.createElement('table');
+        
+        // Thead
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        
+        const thEngine = document.createElement('th');
+        thEngine.textContent = t('tableEngine');
+        const thResult = document.createElement('th');
+        thResult.textContent = t('tableResult');
+        const thStatus = document.createElement('th');
+        thStatus.textContent = t('tableStatus');
+        
+        headerRow.appendChild(thEngine);
+        headerRow.appendChild(thResult);
+        headerRow.appendChild(thStatus);
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+        
+        // Tbody
+        const tbody = document.createElement('tbody');
         
         for (const [engine, result] of Object.entries(r.perEngine)) {
           if (!result || typeof result !== 'object') continue;
@@ -241,28 +271,50 @@ async function renderLast() {
                              safeCategory === 'suspicious' ? '⚠️' : 
                              safeCategory === 'undetected' ? '✅' : '❓';
           
-          itemHTML += `<tr>
-            <td><strong>${safeEngine}</strong></td>
-            <td>${safeResult}</td>
-            <td>${statusEmoji} ${safeCategory}</td>
-          </tr>`;
+          const row = document.createElement('tr');
+          
+          const tdEngine = document.createElement('td');
+          const strongEngine = document.createElement('strong');
+          strongEngine.textContent = safeEngine;
+          tdEngine.appendChild(strongEngine);
+          
+          const tdResult = document.createElement('td');
+          tdResult.textContent = safeResult;
+          
+          const tdStatus = document.createElement('td');
+          tdStatus.textContent = `${statusEmoji} ${safeCategory}`;
+          
+          row.appendChild(tdEngine);
+          row.appendChild(tdResult);
+          row.appendChild(tdStatus);
+          tbody.appendChild(row);
         }
         
-        itemHTML += '</tbody></table></div></details>';
+        table.appendChild(tbody);
+        engineTableDiv.appendChild(table);
+        details.appendChild(engineTableDiv);
+        itemDiv.appendChild(details);
       }
       
-      itemDiv.innerHTML = itemHTML;
       listContainer.appendChild(itemDiv);
     }
     
+    out.appendChild(listContainer);
+    
   } catch (err) {
     console.error('Erreur renderLast:', err);
-    out.innerHTML = '<div class="error-state">❌ Erreur lors du chargement de l\'historique</div>';
+    out.textContent = '';
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-state';
+    errorDiv.textContent = t('errorLoadHistory');
+    out.appendChild(errorDiv);
   }
 }
 
 // === INIT ===
 (async () => {
+  translatePage();
   await loadTheme();
+  await updateUI();
   await renderLast();
 })();
