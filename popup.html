@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://www.virustotal.com; img-src 'self' data:;">
-  <title>VirusTotal Scanner</title>
+  <title data-i18n="popupTitle">VirusTotal Scanner</title>
   <style>
     * {
       margin: 0;
@@ -27,6 +27,8 @@
       --danger-bg: #ffe8e8;
       --danger-border: #d70022;
       --shadow: rgba(12, 12, 13, 0.1);
+      --pause-color: #ff9400;
+      --pause-hover: #cc7700;
     }
 
     body {
@@ -40,7 +42,6 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* === DARK MODE === */
     body.dark-mode {
       --bg-primary: #1c1c1e;
       --bg-secondary: #2c2c2e;
@@ -57,9 +58,10 @@
       --danger-bg: #3a1a1a;
       --danger-border: #ff453a;
       --shadow: rgba(0, 0, 0, 0.3);
+      --pause-color: #ffd60a;
+      --pause-hover: #ffaa00;
     }
 
-    /* Header */
     .header {
       background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-hover) 100%);
       color: white;
@@ -68,6 +70,10 @@
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 8px var(--shadow);
+    }
+
+    .header.paused {
+      background: linear-gradient(135deg, var(--pause-color) 0%, var(--pause-hover) 100%);
     }
 
     .header-title {
@@ -94,7 +100,6 @@
       gap: 8px;
     }
 
-    /* Buttons */
     .btn {
       padding: 8px 16px;
       border: none;
@@ -120,6 +125,24 @@
 
     .btn-primary:active {
       transform: scale(0.98);
+    }
+
+    .btn-pause {
+      background: var(--pause-color);
+      color: white;
+    }
+
+    .btn-pause:hover {
+      background: var(--pause-hover);
+    }
+
+    .btn-resume {
+      background: #30d158;
+      color: white;
+    }
+
+    .btn-resume:hover {
+      background: #28a745;
     }
 
     .btn-secondary {
@@ -153,7 +176,6 @@
       background: #a4000f;
     }
 
-    /* Content */
     .content {
       padding: 16px 20px;
     }
@@ -163,6 +185,27 @@
       gap: 8px;
       margin-bottom: 20px;
       flex-wrap: wrap;
+    }
+
+    .status-banner {
+      background: var(--warning-bg);
+      border: 2px solid var(--warning-border);
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: var(--warning-border);
+    }
+
+    .status-banner.show {
+      display: flex;
+    }
+
+    .status-icon {
+      font-size: 20px;
     }
 
     .section-title {
@@ -175,7 +218,6 @@
       gap: 8px;
     }
 
-    /* History items */
     .history-list {
       max-height: 400px;
       overflow-y: auto;
@@ -302,7 +344,6 @@
       color: var(--danger-border);
     }
 
-    /* Details */
     details {
       margin-top: 10px;
     }
@@ -365,7 +406,6 @@
       border-bottom: none;
     }
 
-    /* Empty state */
     .empty-state {
       text-align: center;
       padding: 40px 20px;
@@ -389,7 +429,6 @@
       color: var(--text-hint);
     }
 
-    /* Loading */
     .loading {
       text-align: center;
       padding: 20px;
@@ -424,40 +463,39 @@
       border-radius: 8px;
       font-weight: 500;
     }
-
-    /* Hidden file input */
-    #filepicker {
-      display: none;
-    }
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" id="header">
     <div class="header-title">
       <div class="header-icon">🛡️</div>
-      <span>VirusTotal Scanner</span>
+      <span id="header-text" data-i18n="popupTitle">VirusTotal Scanner</span>
     </div>
     <div class="header-actions">
-      <button id="options" class="btn btn-icon" title="Options">⚙️</button>
+      <button id="options" class="btn btn-icon" data-i18n-title="btnOptions" title="Options">⚙️</button>
     </div>
   </div>
 
   <div class="content">
+    <div id="status-banner" class="status-banner">
+      <span class="status-icon">⏸️</span>
+      <span data-i18n="statusPaused">Surveillance des téléchargements en pause</span>
+    </div>
+
     <div class="actions-bar">
-      <input id="filepicker" type="file" accept="*/*">
-      <button id="pick" class="btn btn-primary">
-        📁 Scanner un fichier
+      <button id="toggle-scan" class="btn btn-pause">
+        <span id="toggle-text">⏸️ <span data-i18n="btnPause">Mettre en pause</span></span>
       </button>
       <button id="clear-history" class="btn btn-danger">
-        🗑️ Effacer l'historique
+        🗑️ <span data-i18n="btnClearHistory">Effacer l'historique</span>
       </button>
     </div>
 
     <div class="section-title">
-      📊 Historique des scans
+      📊 <span data-i18n="sectionHistory">Historique des scans</span>
     </div>
 
-    <div id="result" class="loading">Chargement</div>
+    <div id="result" class="loading" data-i18n="loading">Chargement</div>
   </div>
 
   <script src="popup.js"></script>
