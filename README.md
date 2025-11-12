@@ -2,7 +2,7 @@
 
 [![Version Firefox](https://img.shields.io/amo/v/virustotal-file-scanner?label=Firefox&style=for-the-badge&logo=firefox)](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
 [![Licence](https://img.shields.io/github/license/memton80/VirusTotal-File-Scanner?style=for-the-badge&label=Licence)](https://github.com/memton80/VirusTotal-File-Scanner/blob/main/LICENSE)
-[![Statut](https://img.shields.io/badge/Statut-Alpha-red?style=for-the-badge)](https://github.com/memton80/VirusTotal-File-Scanner)
+[![Statut](https://img.shields.io/badge/Statut-Beta-red?style=for-the-badge)](https://github.com/memton80/VirusTotal-File-Scanner)
 
 **🇫🇷 Français**
 
