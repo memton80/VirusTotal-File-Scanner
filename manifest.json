@@ -1,0 +1,54 @@
+{
+  "manifest_version": 2,
+  "name": "VirusTotal File Scanner",
+  "version": "1.7.7",
+  "description": "Scan automatique des fichiers téléchargés via VirusTotal. Sécurisé, avec mode sombre et validation stricte. / Automatic scanning of files uploaded via VirusTotal. Secure, with dark mode and strict validation.",
+  "default_locale": "en",
+  
+  "permissions": [
+    "downloads",
+    "notifications",
+    "storage",
+    "downloads.open",
+    "https://www.virustotal.com/*",
+    "<all_urls>"
+  ],
+  
+  "content_security_policy": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://www.virustotal.com https://*; img-src 'self' data:; object-src 'none'",
+  
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  
+  "browser_action": {
+    "default_icon": {
+      "48": "icons/icon-48.png"
+    },
+    "default_title": "__MSG_popupTitle__",
+    "default_popup": "popup.html"
+  },
+  
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  
+  "icons": {
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{679bb509-5bf5-41e3-9213-652c7a0e14f5}",
+      "strict_min_version": "109.0",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
+  }
+}
