@@ -1,0 +1,343 @@
+{
+  "extensionName": {
+    "message": "VirusTotal File Scanner",
+    "description": "Extension name"
+  },
+  "extensionDescription": {
+    "message": "Automatic file scanning for downloads via VirusTotal. Secure, with dark mode and strict validation.",
+    "description": "Extension description"
+  },
+  
+  "popupTitle": {
+    "message": "VirusTotal Scanner"
+  },
+  "btnPause": {
+    "message": "Pause"
+  },
+  "btnResume": {
+    "message": "Resume monitoring"
+  },
+  "btnClearHistory": {
+    "message": "Clear history"
+  },
+  "btnOptions": {
+    "message": "Options"
+  },
+  "statusPaused": {
+    "message": "Download monitoring paused"
+  },
+  "sectionHistory": {
+    "message": "Scan history"
+  },
+  "loading": {
+    "message": "Loading"
+  },
+  "emptyStateTitle": {
+    "message": "No scans recorded"
+  },
+  "emptyStateSubtext": {
+    "message": "Downloaded files will be automatically scanned"
+  },
+  "detailsEngines": {
+    "message": "Details by antivirus engine"
+  },
+  "tableEngine": {
+    "message": "Engine"
+  },
+  "tableResult": {
+    "message": "Result"
+  },
+  "tableStatus": {
+    "message": "Status"
+  },
+  "detections": {
+    "message": "detections"
+  },
+  "confirmClearHistory": {
+    "message": "⚠️ Clear scan history?\n\nThis action is irreversible."
+  },
+  "errorClearHistory": {
+    "message": "❌ Error deleting history."
+  },
+  "errorLoadHistory": {
+    "message": "❌ Error loading history"
+  },
+  
+  "optionsTitle": {
+    "message": "VirusTotal Scanner — Options"
+  },
+  "optionsPageTitle": {
+    "message": "Extension configuration"
+  },
+  "sectionAppearance": {
+    "message": "Appearance"
+  },
+  "darkMode": {
+    "message": "Dark mode"
+  },
+  "sectionApiKey": {
+    "message": "VirusTotal API Key"
+  },
+  "labelApiKey": {
+    "message": "API Key (x-apikey)"
+  },
+  "placeholderApiKey": {
+    "message": "Paste your VirusTotal API key here (64 hexadecimal characters)"
+  },
+  "hintApiKey": {
+    "message": "🔒 Your key is stored locally in your browser and encrypted by Firefox"
+  },
+  "btnSaveKey": {
+    "message": "Save key"
+  },
+  "btnDeleteKey": {
+    "message": "Delete key"
+  },
+  "btnValidating": {
+    "message": "Validating..."
+  },
+  "infoHowToGetKey": {
+    "message": "How to get an API key?"
+  },
+  "infoHowToGetKeyStep1": {
+    "message": "Create a free account on"
+  },
+  "infoHowToGetKeyStep2": {
+    "message": "Go to your profile → API Key"
+  },
+  "infoHowToGetKeyStep3": {
+    "message": "Copy your API key (64 characters)"
+  },
+  "infoHowToGetKeyStep4": {
+    "message": "Paste it in the field above"
+  },
+  "infoApiLimits": {
+    "message": "Free API limits"
+  },
+  "infoApiLimitsFree": {
+    "message": "Free account"
+  },
+  "infoApiLimitsRate": {
+    "message": "4 requests per minute, 500 requests per day"
+  },
+  "infoApiLimitsSize": {
+    "message": "Maximum size"
+  },
+  "infoApiLimitsSizeValue": {
+    "message": "32 MB per file"
+  },
+  "infoApiLimitsText": {
+    "message": "This extension automatically respects these limits. For intensive use, check out the"
+  },
+  "infoApiLimitsPaid": {
+    "message": "paid plans"
+  },
+  "infoSecurity": {
+    "message": "Security & Privacy"
+  },
+  "infoSecurityTitle": {
+    "message": "🔐 Data protection:"
+  },
+  "infoSecurityPoint1": {
+    "message": "Your API key is stored locally and encrypted by Firefox"
+  },
+  "infoSecurityPoint2": {
+    "message": "All communications use HTTPS (TLS 1.3)"
+  },
+  "infoSecurityPoint3": {
+    "message": "No data is sent to third parties (except VirusTotal)"
+  },
+  "infoSecurityPoint4": {
+    "message": "The source code is open on"
+  },
+  "infoSecurityPoint5": {
+    "message": "Strict validation of all user inputs"
+  },
+  "infoSecurityWarning": {
+    "message": "⚠️ Important"
+  },
+  "infoSecurityWarningText": {
+    "message": "Uploaded files become public on VirusTotal. Don't scan confidential files!"
+  },
+  "errorApiKeyEmpty": {
+    "message": "API key cannot be empty."
+  },
+  "errorApiKeyInvalid": {
+    "message": "Invalid key format. VirusTotal key must contain exactly 64 hexadecimal characters (0-9, a-f)."
+  },
+  "errorApiKeyUnauthorized": {
+    "message": "Invalid or expired API key. Check your key at virustotal.com/gui/my-apikey"
+  },
+  "errorApiKeyForbidden": {
+    "message": "Access denied. Your API key may be restricted or blocked."
+  },
+  "errorApiKeyTimeout": {
+    "message": "Timeout: unable to validate key (slow network). Try again."
+  },
+  "errorApiKeyNetwork": {
+    "message": "Unable to validate key (network error). It was saved anyway."
+  },
+  "successApiKeySaved": {
+    "message": "✅ API key saved and validated successfully!"
+  },
+  "confirmDeleteKey": {
+    "message": "⚠️ WARNING: Delete stored API key?\n\nYou will need to re-enter it to scan files.\n\nThis action is irreversible."
+  },
+  "successApiKeyDeleted": {
+    "message": "🗑️ Key deleted successfully."
+  },
+  "placeholderApiKeyCurrent": {
+    "message": "Current key"
+  },
+  "placeholderApiKeySaved": {
+    "message": "Saved key"
+  },
+  
+  "notifNoApiKey": {
+    "message": "⚠️ API key missing"
+  },
+  "notifNoApiKeyMsg": {
+    "message": "Configure your VirusTotal key in options (⚙️)."
+  },
+  "notifScanStartTitle": {
+    "message": "🔄 Scan started"
+  },
+  "notifScanStartMsg": {
+    "message": "Uploading to VirusTotal..."
+  },
+  "notifFileTooLarge": {
+    "message": "❌ File too large"
+  },
+  "notifFileTooLargeMsg": {
+    "message": "MB > 32 MB (free API limit)"
+  },
+  "notifFileEmpty": {
+    "message": "❌ Empty file"
+  },
+  "notifFileEmptyMsg": {
+    "message": "The downloaded file is empty (0 bytes)."
+  },
+  "notifManualScan": {
+    "message": "📋 Manual scan required"
+  },
+  "notifTimeout": {
+    "message": "⏱️ Timeout"
+  },
+  "notifTimeoutMsg": {
+    "message": "File download took too long."
+  },
+  "notifFetchError": {
+    "message": "❌ Retrieval error"
+  },
+  "notifUploadError": {
+    "message": "❌ Upload failed"
+  },
+  "notifVTError": {
+    "message": "❌ VirusTotal error"
+  },
+  "notifVTErrorMsg": {
+    "message": "Unexpected service response."
+  },
+  "notifScanComplete": {
+    "message": "✅ Scan complete"
+  },
+  "notifScanCompleteMsg": {
+    "message": "Results available in popup."
+  },
+  "notifScanPending": {
+    "message": "⏱️ Scan pending"
+  },
+  "notifScanPendingMsg": {
+    "message": "Analysis taking longer than expected. Check popup."
+  },
+  "notifReportError": {
+    "message": "❌ Report error"
+  },
+  "notifFileSafe": {
+    "message": "✅ Safe file"
+  },
+  "notifFileSuspicious": {
+    "message": "⚠️ Suspicious file"
+  },
+  "notifFileDangerous": {
+    "message": "🚨 Dangerous file!"
+  },
+  "notifError": {
+    "message": "❌ Error"
+  },
+"notifScanSlow": {
+    "message": "⏳ Scan in progress"
+  },
+  "notifScanSlowMsg": {
+    "message": "Analysis taking longer than expected. Check the popup."
+  },
+  "notifRateLimitError": {
+    "message": "⏱️ API limit reached"
+  },
+  "notifRateLimitMsg": {
+    "message": "API rate limit exceeded. Try again in a few minutes."
+  },
+  "notifInvalidId": {
+    "message": "❌ Invalid analysis ID"
+  },
+  "notifInvalidSha": {
+    "message": "❌ Invalid SHA256"
+  },
+  "notifInvalidResponse": {
+    "message": "❌ Invalid response"
+  },
+  "notifInvalidResponseMsg": {
+    "message": "Invalid VirusTotal response format"
+  },
+  "notifReportNotFound": {
+    "message": "❌ Report not found"
+  },
+  "notifReportNotFoundMsg": {
+    "message": "Report not available on VirusTotal"
+  },
+  "notifNetworkError": {
+    "message": "❌ Network error"
+  },
+  "notifNetworkErrorMsg": {
+    "message": "Network connection problem"
+  },
+  "notifUploadTimeout": {
+    "message": "⏱️ Upload timeout"
+  },
+  "notifUploadTimeoutMsg": {
+    "message": "Upload took too long (> 2 min)"
+  },
+  "notifTooManyRetries": {
+    "message": "❌ Too many retries"
+  },
+  "notifTooManyRetriesMsg": {
+    "message": "Unable to retrieve report after multiple attempts"
+  },
+  "notifFileTooLargeApi": {
+    "message": "❌ File too large"
+  },
+  "notifFileTooLargeApiMsg": {
+    "message": "Exceeds API limit (32 MB)"
+  },
+  "notifPollingFailed": {
+    "message": "❌ Polling failed"
+  },
+  "notifPollingFailedMsg": {
+    "message": "Unable to retrieve results"
+  },
+  "notifConsecutiveErrors": {
+    "message": "❌ Multiple errors"
+  },
+  "notifConsecutiveErrorsMsg": {
+    "message": "Too many consecutive errors"
+  },
+  "notifRateLimiterError": {
+    "message": "❌ Rate limiter error"
+  },
+  "notifParseError": {
+    "message": "❌ Parse error"
+  },
+  "notifParseErrorMsg": {
+    "message": "Invalid response from VirusTotal"
+  }
+}
