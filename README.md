@@ -74,10 +74,6 @@ The easiest way is to install the extension from the official add-ons store:
 
 ## ⚠️ Avertissement / Warning
 
-* **Statut : Alpha / Status: Alpha**
-    **🇫🇷** Cette extension est en cours de développement. Des bugs ou des fonctionnalités manquantes sont possibles.
-    **🇬🇧** This extension is under development. Bugs or missing features are possible.
-
 * **API VirusTotal / VirusTotal API**
     **🇫🇷** Cette extension utilise l'API publique de VirusTotal. Vous êtes soumis aux [limitations et conditions d'utilisation](https://support.virustotal.com/hc/en-us/articles/115002100149) de ce service (ex: nombre de requêtes par minute).
     **🇬🇧** This extension uses the public VirusTotal API. You are subject to the [terms of use and limitations](https://support.virustotal.com/hc/en-us/articles/115002100149) of that service (e.g., number of requests per minute).
