@@ -1,0 +1,61 @@
+{
+  "manifest_version": 3,
+  "name": "VirusTotal File Scanner",
+  "version": "1.8.3",
+  "description": "Automatically scan downloaded files with VirusTotal. 70+ antivirus engines, privacy-focused with sensitive file protection. Requires free VirusTotal API key.",
+  "default_locale": "en",
+  
+  "permissions": [
+    "downloads",
+    "notifications",
+    "storage"
+  ],
+  
+  "host_permissions": [
+    "https://www.virustotal.com/*",
+    "<all_urls>"
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://www.virustotal.com https://*; img-src 'self' data:; object-src 'none'"
+  },
+  
+  "background": {
+    "scripts": [
+      "utils.js",
+      "cache.js",
+      "rateLimiter.js",
+      "history.js",
+      "background.js"
+    ]
+  },
+  
+  "action": {
+    "default_icon": {
+      "48": "icons/icon-48.png"
+    },
+    "default_title": "__MSG_popupTitle__",
+    "default_popup": "popup.html"
+  },
+  
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  
+  "icons": {
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{679bb509-5bf5-41e3-9213-652c7a0e14f5}",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": ["none"],
+        "optional": []
+      }
+    }
+  }
+}

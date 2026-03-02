@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src https://www.virustotal.com; img-src 'self' data:;">
+  <title data-i18n="optionsTitle">VirusTotal Scanner — Options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="header">
+    <div class="header-content">
+      <div class="header-title">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <span>VirusTotal Scanner</span>
+      </div>
+      <div class="header-subtitle" data-i18n="optionsPageTitle">Configuration de l'extension</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Dark Mode Toggle -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <span data-i18n="sectionAppearance">Apparence</span>
+      </div>
+      <div class="theme-toggle">
+        <span class="toggle-label" data-i18n="darkMode">Mode sombre</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="dark-mode-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- API Key Section -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+        </svg>
+        <span data-i18n="sectionApiKey">Clé API VirusTotal</span>
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label" for="api" data-i18n="labelApiKey">Clé API (x-apikey)</label>
+        <input 
+          id="api" 
+          class="form-input" 
+          type="text"
+          data-i18n="placeholderApiKey"
+          placeholder="Colle ta clé API VirusTotal ici (64 caractères hexadécimaux)"
+          spellcheck="false"
+          autocomplete="off"
+          maxlength="64"
+        >
+        <div class="form-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span data-i18n="hintApiKey">Ta clé est stockée localement dans ton navigateur et chiffrée par Firefox</span>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button id="save" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+            <polyline points="17 21 17 13 7 13 7 21"/>
+            <polyline points="7 3 7 8 15 8"/>
+          </svg>
+          <span data-i18n="btnSaveKey">Enregistrer la clé</span>
+        </button>
+        <button id="forget" class="btn btn-danger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px;">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          <span data-i18n="btnDeleteKey">Supprimer la clé</span>
+        </button>
+      </div>
+
+      <div id="success-msg" class="success-message"></div>
+      <div id="error-msg" class="error-message">
+        <span id="error-text"></span>
+      </div>
+    </div>
+
+    <div class="card info-box">
+      <div class="info-box-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span data-i18n="infoHowToGetKey">Comment obtenir une clé API ?</span>
+      </div>
+      <div class="info-box-text">
+        <ol style="margin-left: 20px; margin-top: 8px;">
+          <li style="margin-bottom: 8px;">
+            <span data-i18n="infoHowToGetKeyStep1">Crée un compte gratuit sur</span> <a href="https://www.virustotal.com/" target="_blank" rel="noopener noreferrer">VirusTotal.com</a>
+          </li>
+          <li style="margin-bottom: 8px;">
+            <span data-i18n="infoHowToGetKeyStep2">Va dans ton profil → API Key</span> → <a href="https://www.virustotal.com/gui/my-apikey" target="_blank" rel="noopener noreferrer">API Key</a>
+          </li>
+          <li style="margin-bottom: 8px;" data-i18n="infoHowToGetKeyStep3">
+            Copie ta clé API (64 caractères)
+          </li>
+          <li data-i18n="infoHowToGetKeyStep4">
+            Colle-la dans le champ ci-dessus
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card warning-box info-box">
+      <div class="info-box-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <span data-i18n="infoApiLimits">Limite de l'API gratuite</span>
+      </div>
+      <div class="info-box-text">
+        <strong data-i18n="infoApiLimitsFree">Compte gratuit</strong>: <span data-i18n="infoApiLimitsRate">4 requêtes par minute, 500 requêtes par jour</span><br>
+        <strong data-i18n="infoApiLimitsSize">Taille maximale</strong>: <span data-i18n="infoApiLimitsSizeValue">32 MB par fichier</span><br><br>
+        <span data-i18n="infoApiLimitsText">Cette extension respecte automatiquement ces limites. Pour un usage intensif, consulte les</span> 
+        <a href="https://support.virustotal.com/hc/en-us/articles/115002100149" target="_blank" rel="noopener noreferrer" data-i18n="infoApiLimitsPaid">plans payants</a>.
+      </div>
+    </div>
+
+    <div class="card card-full">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span data-i18n="infoSecurity">Sécurité & Confidentialité</span>
+      </div>
+      <div class="info-box-text">
+        <p style="margin-bottom: 12px;">
+          <strong data-i18n="infoSecurityTitle">Protection des données :</strong>
+        </p>
+        <ul style="margin-left: 20px; line-height: 1.8;">
+          <li data-i18n="infoSecurityPoint1">Ta clé API est stockée localement et chiffrée par Firefox</li>
+          <li data-i18n="infoSecurityPoint2">Toutes les communications utilisent HTTPS (TLS 1.3)</li>
+          <li data-i18n="infoSecurityPoint3">Aucune donnée n'est envoyée à des tiers (sauf VirusTotal)</li>
+          <li>
+            <span data-i18n="infoSecurityPoint4">Le code source est ouvert sur</span> <a href="https://github.com/memton80/VirusTotal-File-Scanner" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </li>
+          <li data-i18n="infoSecurityPoint5">Validation stricte de toutes les entrées utilisateur</li>
+        </ul>
+        <p style="margin-top: 12px;">
+          <strong data-i18n="infoSecurityWarning">Important</strong>: 
+          <span data-i18n="infoSecurityWarningText">Les fichiers uploadés deviennent publics sur VirusTotal. Ne scanne pas de fichiers confidentiels !</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- === GUIDE DE PREMIÈRE INSTALLATION === -->
+  <div id="onboarding-overlay" class="onboarding-overlay">
+    <div class="onboarding-backdrop"></div>
+    
+    <!-- Étape 1: Dark Mode -->
+    <div id="onboarding-step-1" class="onboarding-step">
+      <div class="onboarding-highlight" id="highlight-darkmode"></div>
+      <div class="onboarding-tooltip" id="tooltip-darkmode">
+        <div class="onboarding-tooltip-header">
+          <span class="onboarding-step-badge">1/3</span>
+          <span class="onboarding-tooltip-title" data-i18n="onboardingDarkModeTitle">Choisis ton thème</span>
+        </div>
+        <p class="onboarding-tooltip-text" data-i18n="onboardingDarkModeText">Active le mode sombre pour une meilleure expérience nocturne, ou garde le thème clair.</p>
+        <div class="onboarding-tooltip-actions">
+          <button class="onboarding-btn onboarding-btn-primary" id="onboarding-next-1" data-i18n="onboardingNext">Suivant →</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Étape 2: Comment obtenir une clé API -->
+    <div id="onboarding-step-2" class="onboarding-step" style="display: none;">
+      <div class="onboarding-highlight" id="highlight-howto"></div>
+      <div class="onboarding-tooltip" id="tooltip-howto">
+        <div class="onboarding-tooltip-header">
+          <span class="onboarding-step-badge">2/3</span>
+          <span class="onboarding-tooltip-title" data-i18n="onboardingHowToTitle">Comment obtenir une clé ?</span>
+        </div>
+        <p class="onboarding-tooltip-text" data-i18n="onboardingHowToText">Pas encore de clé ? Suis ces étapes pour en obtenir une gratuitement sur VirusTotal.</p>
+        <div class="onboarding-tooltip-actions">
+          <button class="onboarding-btn onboarding-btn-secondary" id="onboarding-prev-2" data-i18n="onboardingBack">← Retour</button>
+          <button class="onboarding-btn onboarding-btn-primary" id="onboarding-next-2" data-i18n="onboardingNext">Suivant →</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Étape 3: API Key -->
+    <div id="onboarding-step-3" class="onboarding-step" style="display: none;">
+      <div class="onboarding-highlight" id="highlight-apikey"></div>
+      <div class="onboarding-tooltip" id="tooltip-apikey">
+        <div class="onboarding-tooltip-header">
+          <span class="onboarding-step-badge">3/3</span>
+          <span class="onboarding-tooltip-title" data-i18n="onboardingApiKeyTitle">Configure ta clé API</span>
+        </div>
+        <p class="onboarding-tooltip-text" data-i18n="onboardingApiKeyText">Pour scanner des fichiers, tu as besoin d'une clé API gratuite de VirusTotal. Saisis-la ici !</p>
+        <div class="onboarding-tooltip-actions">
+          <button class="onboarding-btn onboarding-btn-secondary" id="onboarding-prev-3" data-i18n="onboardingBack">← Retour</button>
+          <button class="onboarding-btn onboarding-btn-primary" id="onboarding-finish" data-i18n="onboardingFinish">Terminer ✓</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bouton pour fermer le guide -->
+    <button class="onboarding-skip" id="onboarding-skip" data-i18n="onboardingSkip">Passer le guide ✕</button>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
