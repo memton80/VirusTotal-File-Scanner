@@ -576,10 +576,12 @@ async function pollAndShowReport(id, apiKey, itemMeta) {
         
         if (status === "completed") {
           console.log("Scan terminé!");
-          const sha256 = j?.meta?.file_info?.sha256 || 
-                        j?.data?.id || 
-                        j?.data?.attributes?.sha256 ||
-                        itemMeta.sha256;
+          const sha256FromAnalysisId = j?.data?.id?.match(/u-([a-f0-9]{64})-/i)?.[1] || null;
+
+          const sha256 = j?.meta?.file_info?.sha256 ||
+               sha256FromAnalysisId ||      
+               j?.data?.attributes?.sha256 ||
+               itemMeta.sha256;
           
           console.log("SHA256:", sha256);
           
