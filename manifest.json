@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "VirusTotal File Scanner",
-  "version": "1.8.3",
+  "version": "1.8.4",
   "description": "Automatically scan downloaded files with VirusTotal. 70+ antivirus engines, privacy-focused with sensitive file protection. Requires free VirusTotal API key.",
   "default_locale": "en",
   
