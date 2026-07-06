@@ -1,0 +1,753 @@
+/* === KDE Plasma 6 / Breeze — VirusTotal Scanner === */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   PALETTE BREEZE EXACTE (tirée du thème KDE source)
+   ============================================================ */
+:root {
+  --br-accent:         #1d99f3;
+  --br-accent-hover:   #45c0ed;
+  --br-accent-dark:    #1a8ad9;
+
+  /* Window — fond de fenêtre */
+  --br-window:         #eff0f1;
+  --br-window-fg:      #232629;
+  --br-window-fg-dim:  #5a5d61;
+
+  /* View — zones de liste / lecture */
+  --br-view:           #fcfcfc;
+  --br-view-fg:        #232629;
+
+  /* Complementary — panel / titlebar (toujours sombre) */
+  --br-panel:          #31363b;
+  --br-panel-fg:       #eff0f1;
+  --br-panel-fg-dim:   rgba(239, 240, 241, 0.55);
+
+  /* Panel en mode pause */
+  --br-panel-pause:    #6b3c00;
+
+  /* Sémantique */
+  --br-positive:       #27ae60;
+  --br-positive-bg:    rgba(39, 174, 96, 0.11);
+  --br-warning:        #f67400;
+  --br-warning-bg:     rgba(246, 116, 0, 0.11);
+  --br-negative:       #da4453;
+  --br-negative-bg:    rgba(218, 68, 83, 0.11);
+
+  /* Bordures / séparateurs */
+  --br-separator:      rgba(0, 0, 0, 0.08);
+  --br-border:         rgba(0, 0, 0, 0.16);
+
+  /* Hover Plasma */
+  --br-hover:          rgba(61, 174, 233, 0.10);
+
+  /* Rayons — Breeze utilise des petits rayons */
+  --r-sm: 3px;
+  --r-md: 4px;
+  --r-lg: 6px;
+}
+
+/* ============================================================
+   BREEZE DARK
+   ============================================================ */
+body.dark-mode {
+  --br-window:         #2a2e32;
+  --br-window-fg:      #eff0f1;
+  --br-window-fg-dim:  #9fa3a8;
+
+  --br-view:           #232629;
+  --br-view-fg:        #eff0f1;
+
+  --br-panel:          #1b1e20;
+  --br-panel-fg:       #eff0f1;
+  --br-panel-fg-dim:   rgba(239, 240, 241, 0.52);
+
+  --br-panel-pause:    #3d2200;
+
+  --br-positive-bg:    rgba(39, 174, 96, 0.16);
+  --br-warning-bg:     rgba(246, 116, 0, 0.16);
+  --br-negative-bg:    rgba(218, 68, 83, 0.16);
+
+  --br-separator:      rgba(255, 255, 255, 0.07);
+  --br-border:         rgba(255, 255, 255, 0.13);
+
+  --br-hover:          rgba(61, 174, 233, 0.12);
+}
+
+/* ============================================================
+   BODY
+   ============================================================ */
+body {
+  font-family: "Noto Sans", "Oxygen", system-ui, -apple-system, sans-serif;
+  width: 500px;
+  max-height: 620px;
+  background: var(--br-window);
+  color: var(--br-window-fg);
+  font-size: 13px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   HEADER — panel "complementary" Plasma (toujours sombre)
+   ============================================================ */
+.header {
+  background: var(--br-panel);
+  color: var(--br-panel-fg);
+  padding: 0 8px 0 12px;
+  height: 46px;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-shrink: 0;
+  transition: background 0.18s ease;
+}
+
+.header.paused {
+  background: var(--br-panel-pause);
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  color: var(--br-panel-fg);
+  overflow: hidden;
+  flex: 1;
+}
+
+#header-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.header-icon {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  background: var(--br-accent);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: #fff;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   BOUTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.1s ease, border-color 0.1s ease, opacity 0.1s ease;
+  line-height: 1;
+}
+
+/* Bouton icône dans le header — Plasma toolbar button */
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  color: var(--br-panel-fg);
+  border-color: transparent;
+}
+
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+  opacity: 0.72;
+  transition: opacity 0.1s ease;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.btn-icon:hover svg {
+  opacity: 1;
+}
+
+.btn-icon:active {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* État pause actif — icône play tintée */
+.btn-icon.state-paused svg {
+  opacity: 1;
+  stroke: #f39c12;
+}
+
+/* Boutons pour la page options */
+.btn-primary {
+  padding: 7px 14px;
+  background: var(--br-accent);
+  color: #fff;
+  border-color: var(--br-accent-dark);
+}
+
+.btn-primary:hover {
+  background: var(--br-accent-hover);
+  border-color: var(--br-accent);
+}
+
+.btn-primary:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 7px 14px;
+  background: var(--br-window);
+  color: var(--br-window-fg);
+  border-color: var(--br-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--br-accent);
+  color: var(--br-accent);
+}
+
+.btn-danger {
+  padding: 7px 14px;
+  background: transparent;
+  color: var(--br-negative);
+  border-color: rgba(218, 68, 83, 0.35);
+}
+
+.btn-danger:hover {
+  background: var(--br-negative-bg);
+  border-color: var(--br-negative);
+}
+
+/* Anciens boutons pause/resume (si jamais utilisés ailleurs) */
+.btn-pause {
+  padding: 6px 12px;
+  background: var(--br-warning-bg);
+  color: var(--br-warning);
+  border-color: rgba(246, 116, 0, 0.35);
+}
+
+.btn-resume {
+  padding: 6px 12px;
+  background: var(--br-positive-bg);
+  color: var(--br-positive);
+  border-color: rgba(39, 174, 96, 0.35);
+}
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ============================================================
+   BANNIÈRE PAUSE — style Plasma inline message
+   ============================================================ */
+.status-banner {
+  background: var(--br-warning-bg);
+  border-bottom: 1px solid rgba(246, 116, 0, 0.22);
+  padding: 7px 12px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--br-warning);
+  flex-shrink: 0;
+}
+
+.status-banner.show {
+  display: flex;
+}
+
+.status-icon {
+  display: flex;
+  align-items: center;
+}
+
+.status-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--br-warning);
+  animation: plasmaPulse 2s ease-in-out infinite;
+}
+
+@keyframes plasmaPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.45; }
+}
+
+/* ============================================================
+   TITRE DE SECTION — style KDE "groupe" / separator header
+   ============================================================ */
+.section-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--br-accent);
+  padding: 8px 12px 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  border-bottom: 1px solid var(--br-separator);
+  flex-shrink: 0;
+}
+
+.section-title svg {
+  width: 11px;
+  height: 11px;
+  stroke: var(--br-accent);
+}
+
+/* ============================================================
+   LISTE D'HISTORIQUE — Plasma ListView
+   ============================================================ */
+#result {
+  overflow-y: auto;
+  flex: 1;
+  background: var(--br-view);
+  min-height: 0;
+}
+
+#result::-webkit-scrollbar {
+  width: 5px;
+}
+
+#result::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#result::-webkit-scrollbar-thumb {
+  background: var(--br-border);
+  border-radius: 3px;
+}
+
+#result::-webkit-scrollbar-thumb:hover {
+  background: var(--br-accent);
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   ITEMS — style Plasma list row
+   ============================================================ */
+.history-item {
+  padding: 9px 12px 8px 14px;
+  border-bottom: 1px solid var(--br-separator);
+  transition: background 0.08s ease;
+  position: relative;
+  cursor: default;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item:hover {
+  background: var(--br-hover);
+}
+
+/* Accent gauche 2px — signature Plasma */
+.history-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  bottom: 7px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--br-border);
+}
+
+.history-item.safe::before       { background: var(--br-positive); }
+.history-item.suspicious::before { background: var(--br-warning); }
+.history-item.malicious::before  { background: var(--br-negative); }
+.history-item.skipped::before    { background: var(--br-warning); opacity: 0.35; }
+
+/* Ligne 1 : nom de fichier + icône statut */
+.item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.item-filename {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--br-view-fg);
+  min-width: 0;
+  flex: 1;
+}
+
+.item-filename svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--br-accent);
+  opacity: 0.85;
+  flex-shrink: 0;
+}
+
+.item-filename span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-status {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.item-status svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* Ligne 2 : date + badge */
+.item-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-left: 20px;
+}
+
+.item-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--br-window-fg-dim);
+}
+
+.item-date svg {
+  width: 10px;
+  height: 10px;
+  opacity: 0.75;
+}
+
+/* ============================================================
+   BADGE DE DÉTECTION — Plasma chip
+   ============================================================ */
+.detection-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.detection-badge.safe {
+  background: var(--br-positive-bg);
+  color: var(--br-positive);
+  border-color: rgba(39, 174, 96, 0.28);
+}
+
+.detection-badge.suspicious {
+  background: var(--br-warning-bg);
+  color: var(--br-warning);
+  border-color: rgba(246, 116, 0, 0.28);
+}
+
+.detection-badge.malicious {
+  background: var(--br-negative-bg);
+  color: var(--br-negative);
+  border-color: rgba(218, 68, 83, 0.28);
+}
+
+.detection-badge.skipped {
+  background: var(--br-warning-bg);
+  color: var(--br-warning);
+  border-color: rgba(246, 116, 0, 0.28);
+}
+
+/* ============================================================
+   FICHIER SENSIBLE — bandeau "SCAN ANNULÉ"
+   ============================================================ */
+.cancelled-banner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--br-warning);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-bottom-left-radius: var(--r-md);
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  opacity: 0.88;
+}
+
+.history-item.skipped {
+  position: relative;
+  background: rgba(246, 116, 0, 0.04);
+}
+
+body.dark-mode .history-item.skipped {
+  background: rgba(246, 116, 0, 0.07);
+}
+
+/* ============================================================
+   DÉTAILS PAR MOTEUR — Plasma expandable section
+   ============================================================ */
+details {
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+summary {
+  cursor: pointer;
+  padding: 3px 7px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--br-accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: var(--r-sm);
+  transition: background 0.08s ease;
+  list-style: none;
+  user-select: none;
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary:hover {
+  background: var(--br-hover);
+}
+
+summary svg {
+  width: 11px;
+  height: 11px;
+  stroke: var(--br-accent);
+}
+
+/* ============================================================
+   TABLE DES MOTEURS ANTIVIRUS
+   ============================================================ */
+.engine-table {
+  margin-top: 5px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--br-separator);
+  background: var(--br-window);
+}
+
+.engine-table::-webkit-scrollbar {
+  width: 4px;
+}
+
+.engine-table::-webkit-scrollbar-thumb {
+  background: var(--br-border);
+  border-radius: 2px;
+}
+
+.engine-table::-webkit-scrollbar-thumb:hover {
+  background: var(--br-accent);
+}
+
+.engine-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.engine-table thead {
+  position: sticky;
+  top: 0;
+  background: var(--br-window);
+  z-index: 10;
+  border-bottom: 1px solid var(--br-separator);
+}
+
+.engine-table th {
+  text-align: left;
+  padding: 5px 10px;
+  font-weight: 700;
+  color: var(--br-window-fg);
+  text-transform: uppercase;
+  font-size: 9px;
+  letter-spacing: 0.7px;
+}
+
+.engine-table td {
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--br-separator);
+  color: var(--br-window-fg);
+  word-break: break-word;
+  font-size: 11px;
+  vertical-align: middle;
+}
+
+.engine-table td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.engine-table td:nth-child(2) {
+  word-break: break-word;
+  max-width: 180px;
+}
+
+.engine-table td:last-child {
+  white-space: nowrap;
+  min-width: 90px;
+}
+
+.engine-table tbody tr:hover {
+  background: var(--br-hover);
+}
+
+.engine-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.engine-table td svg {
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
+/* ============================================================
+   ÉTAT VIDE
+   ============================================================ */
+.empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--br-window-fg);
+}
+
+.empty-state-icon {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty-state-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  opacity: 0.38;
+}
+
+.empty-state-text {
+  font-size: 13px;
+  margin-bottom: 4px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.empty-state-subtext {
+  font-size: 11px;
+  color: var(--br-window-fg-dim);
+}
+
+/* ============================================================
+   CHARGEMENT & ERREURS
+   ============================================================ */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--br-window-fg-dim);
+  font-size: 12px;
+}
+
+.error-state {
+  margin: 10px 12px;
+  padding: 8px 12px;
+  color: var(--br-negative);
+  background: var(--br-negative-bg);
+  border-radius: var(--r-md);
+  font-size: 12px;
+  border: 1px solid rgba(218, 68, 83, 0.25);
+}
+
+/* ============================================================
+   ICÔNES DE STATUT
+   ============================================================ */
+.status-icon-safe svg       { stroke: var(--br-positive); }
+.status-icon-suspicious svg { stroke: var(--br-warning); }
+.status-icon-malicious svg  {
+  stroke: var(--br-negative);
+  animation: pulseAlert 1.5s ease-in-out infinite;
+}
+.status-icon-unknown svg    { stroke: var(--br-window-fg-dim); }
+
+@keyframes pulseAlert {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.42; }
+}
+
+/* ============================================================
+   HELPERS
+   ============================================================ */
+.vt-icon,
+.vt-icon svg {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  flex-shrink: 0;
+}

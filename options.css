@@ -1,0 +1,898 @@
+/* === KDE Plasma 6 / Breeze — Page Options (style System Settings) === */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   PALETTE BREEZE — identique à popup.css
+   ============================================================ */
+:root {
+  --br-accent:         #1d99f3;
+  --br-accent-hover:   #45c0ed;
+  --br-accent-dark:    #1a8ad9;
+
+  --br-window:         #eff0f1;
+  --br-window-fg:      #232629;
+  --br-window-fg-dim:  rgba(35, 38, 41, 0.52);
+
+  --br-view:           #fcfcfc;
+  --br-view-fg:        #232629;
+
+  --br-button:         #eff0f1;
+  --br-button-fg:      #232629;
+
+  --br-panel:          #31363b;
+  --br-panel-fg:       #eff0f1;
+
+  --br-positive:       #27ae60;
+  --br-positive-bg:    rgba(39, 174, 96, 0.11);
+  --br-warning:        #f67400;
+  --br-warning-bg:     rgba(246, 116, 0, 0.11);
+  --br-negative:       #da4453;
+  --br-negative-bg:    rgba(218, 68, 83, 0.11);
+
+  --br-separator:      rgba(0, 0, 0, 0.08);
+  --br-border:         rgba(0, 0, 0, 0.16);
+  --br-border-strong:  #bdc3c7;
+
+  --br-hover:          rgba(61, 174, 233, 0.10);
+
+  --r-sm: 3px;
+  --r-md: 4px;
+  --r-lg: 6px;
+  --r-xl: 8px;
+
+  /* Variables compat ancien code */
+  --plasma-blue:       #1d99f3;
+  --plasma-blue-light: #3daee9;
+  --plasma-blue-dark:  #1a8ad9;
+  --plasma-blue-hover: #45c0ed;
+  --bg-primary:        #eff0f1;
+  --bg-secondary:      #fcfcfc;
+  --bg-tertiary:       #ffffff;
+  --bg-card:           rgba(255, 255, 255, 0.92);
+  --text-primary:      #232629;
+  --text-secondary:    #5a5d5f;
+  --text-hint:         #7f8c8d;
+  --text-inverted:     #eff0f1;
+  --border-color:      rgba(61, 174, 233, 0.28);
+  --border-strong:     #bdc3c7;
+  --border-light:      rgba(0, 0, 0, 0.07);
+  --success-color:     #27ae60;
+  --success-bg:        rgba(39, 174, 96, 0.11);
+  --warning-color:     #f67400;
+  --warning-bg:        rgba(246, 116, 0, 0.11);
+  --error-color:       #da4453;
+  --error-bg:          rgba(218, 68, 83, 0.11);
+  --shadow-sm:         0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md:         0 2px 8px rgba(0, 0, 0, 0.12);
+  --shadow-lg:         0 4px 16px rgba(0, 0, 0, 0.15);
+  --radius-sm:         var(--r-sm);
+  --radius-md:         var(--r-md);
+  --radius-lg:         var(--r-lg);
+  --radius-xl:         var(--r-xl);
+}
+
+/* ============================================================
+   BREEZE DARK
+   ============================================================ */
+body.dark-mode {
+  --br-window:         #2a2e32;
+  --br-window-fg:      #eff0f1;
+  --br-window-fg-dim:  rgba(239, 240, 241, 0.48);
+  --br-view:           #232629;
+  --br-view-fg:        #eff0f1;
+  --br-button:         #31363b;
+  --br-button-fg:      #eff0f1;
+  --br-panel:          #1b1e20;
+  --br-panel-fg:       #eff0f1;
+
+  --br-positive-bg:    rgba(39, 174, 96, 0.16);
+  --br-warning-bg:     rgba(246, 116, 0, 0.16);
+  --br-negative-bg:    rgba(218, 68, 83, 0.16);
+
+  --br-separator:      rgba(255, 255, 255, 0.07);
+  --br-border:         rgba(255, 255, 255, 0.13);
+  --br-border-strong:  rgba(255, 255, 255, 0.18);
+  --br-hover:          rgba(61, 174, 233, 0.12);
+
+  /* compat */
+  --bg-primary:        #2a2e32;
+  --bg-secondary:      #31363b;
+  --bg-tertiary:       #232629;
+  --bg-card:           rgba(49, 54, 59, 0.95);
+  --text-primary:      #eff0f1;
+  --text-secondary:    #bdc3c7;
+  --text-hint:         #7f8c8d;
+  --border-color:      rgba(61, 174, 233, 0.22);
+  --border-strong:     #4a4e52;
+  --border-light:      rgba(255, 255, 255, 0.06);
+  --success-bg:        rgba(39, 174, 96, 0.18);
+  --warning-bg:        rgba(246, 116, 0, 0.18);
+  --error-bg:          rgba(218, 68, 83, 0.18);
+  --shadow-sm:         0 1px 3px rgba(0, 0, 0, 0.28);
+  --shadow-md:         0 2px 8px rgba(0, 0, 0, 0.38);
+  --shadow-lg:         0 4px 16px rgba(0, 0, 0, 0.48);
+}
+
+/* ============================================================
+   BODY
+   ============================================================ */
+body {
+  font-family: "Noto Sans", "Oxygen", system-ui, -apple-system, sans-serif;
+  background: var(--br-window);
+  color: var(--br-window-fg);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+}
+
+/* ============================================================
+   HEADER — style Plasma System Settings (plat, pas de gradient)
+   ============================================================ */
+.header {
+  background: var(--br-panel);
+  color: var(--br-panel-fg);
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.header-content {
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--br-panel-fg);
+}
+
+.header-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  background: var(--br-accent);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon svg {
+  width: 17px;
+  height: 17px;
+  stroke: #fff;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  color: var(--br-panel-fg);
+  opacity: 0.6;
+  margin-left: 44px;
+  margin-top: -2px;
+  font-weight: 400;
+  display: none; /* affiché via le flex column si besoin */
+}
+
+/* ============================================================
+   CONTENEUR PRINCIPAL — style System Settings content area
+   ============================================================ */
+.container {
+  max-width: 900px;
+  margin: 24px auto 40px;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 700px) {
+  .container {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+  }
+}
+
+/* ============================================================
+   CARDS — style KDE GroupBox / Settings section
+   ============================================================ */
+.card {
+  background: var(--br-view);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--br-border);
+  overflow: hidden;
+  padding: 14px 16px;
+}
+
+.card-full {
+  grid-column: 1 / -1;
+}
+
+/* Titre de card — pleine largeur grâce aux marges négatives */
+.card-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin: -14px -16px 14px;
+  padding: 10px 16px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--br-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  border-bottom: 1px solid var(--br-separator);
+  background: var(--br-window);
+}
+
+.card-title svg {
+  width: 14px;
+  height: 14px;
+  stroke: var(--br-accent);
+}
+
+/* ============================================================
+   ÉLÉMENTS DE FORMULAIRE — style Plasma / Breeze
+   ============================================================ */
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--br-window-fg);
+  font-size: 12px;
+}
+
+/* Input Breeze style */
+.form-input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--br-border-strong);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-family: "Noto Sans Mono", "Oxygen Mono", monospace;
+  background: var(--br-view);
+  color: var(--br-view-fg);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+  line-height: 1.4;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--br-accent);
+  box-shadow: 0 0 0 2px rgba(29, 153, 243, 0.18);
+}
+
+.form-input::placeholder {
+  color: var(--br-window-fg-dim);
+  font-family: "Noto Sans", sans-serif;
+  font-size: 12px;
+}
+
+/* Hint / note sous le champ */
+.form-hint {
+  font-size: 11px;
+  color: var(--br-window-fg-dim);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.form-hint svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--br-accent);
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.form-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   BOUTONS — Plasma / Breeze button style
+   ============================================================ */
+.btn {
+  padding: 7px 14px;
+  border: 1px solid var(--br-border);
+  border-radius: var(--r-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: inherit;
+  line-height: 1.4;
+  background: var(--br-button);
+  color: var(--br-button-fg);
+}
+
+.btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.btn:hover {
+  border-color: var(--br-accent);
+}
+
+.btn-primary {
+  background: var(--br-accent);
+  color: #fff;
+  border-color: var(--br-accent-dark);
+}
+
+.btn-primary:hover {
+  background: var(--br-accent-hover);
+  border-color: var(--br-accent);
+  box-shadow: 0 1px 4px rgba(29, 153, 243, 0.35);
+}
+
+.btn-primary:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--br-button);
+  color: var(--br-button-fg);
+  border-color: var(--br-border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--br-accent);
+  color: var(--br-accent);
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--br-negative);
+  border-color: rgba(218, 68, 83, 0.35);
+}
+
+.btn-danger:hover {
+  background: var(--br-negative-bg);
+  border-color: var(--br-negative);
+}
+
+/* ============================================================
+   INFO BOXES — style Plasma InlineMessage
+   ============================================================ */
+.info-box {
+  border-left: 3px solid var(--br-accent);
+}
+
+.info-box-title {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--br-accent);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.info-box-title svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--br-accent);
+}
+
+.info-box-text {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--br-window-fg-dim);
+}
+
+.info-box-text ol,
+.info-box-text ul {
+  margin-left: 18px;
+  margin-top: 6px;
+}
+
+.info-box-text li {
+  margin-bottom: 5px;
+}
+
+.info-box-text a {
+  color: var(--br-accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.info-box-text a:hover {
+  text-decoration: underline;
+}
+
+.info-box-text strong {
+  color: var(--br-window-fg);
+  font-weight: 600;
+}
+
+.warning-box {
+  border-left-color: var(--br-warning);
+}
+
+.warning-box .info-box-title {
+  color: var(--br-warning);
+}
+
+.warning-box .info-box-title svg {
+  stroke: var(--br-warning);
+}
+
+/* ============================================================
+   MESSAGES SUCCÈS / ERREUR — style Plasma inline notification
+   ============================================================ */
+.success-message {
+  background: var(--br-positive-bg);
+  border: 1px solid rgba(39, 174, 96, 0.35);
+  border-left: 3px solid var(--br-positive);
+  padding: 9px 12px;
+  border-radius: var(--r-md);
+  margin-top: 12px;
+  color: var(--br-positive);
+  display: none;
+  font-size: 12px;
+  font-weight: 500;
+  animation: slideIn 0.2s ease;
+}
+
+.success-message.show {
+  display: block;
+}
+
+.error-message {
+  background: var(--br-negative-bg);
+  border: 1px solid rgba(218, 68, 83, 0.35);
+  border-left: 3px solid var(--br-negative);
+  padding: 9px 12px;
+  border-radius: var(--r-md);
+  margin-top: 12px;
+  color: var(--br-negative);
+  display: none;
+  font-size: 12px;
+  font-weight: 500;
+  animation: slideIn 0.2s ease;
+}
+
+.error-message.show {
+  display: block;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   TOGGLE SWITCH — Plasma / Breeze switch style
+   ============================================================ */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.toggle-label {
+  flex: 1;
+  font-weight: 500;
+  color: var(--br-window-fg);
+  font-size: 13px;
+}
+
+.toggle-switch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--br-border-strong);
+  border-radius: 22px;
+  transition: background 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  bottom: 2px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--br-accent);
+  border-color: var(--br-accent-dark);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+}
+
+/* ============================================================
+   DARK MODE overrides
+   ============================================================ */
+body.dark-mode .card {
+  background: var(--br-view);
+  border-color: var(--br-border);
+}
+
+body.dark-mode .card-title {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+body.dark-mode .form-input {
+  background: var(--br-window);
+  border-color: var(--br-border-strong);
+  color: var(--br-window-fg);
+}
+
+body.dark-mode .btn {
+  background: var(--br-button);
+  color: var(--br-button-fg);
+  border-color: var(--br-border);
+}
+
+body.dark-mode .btn:hover {
+  border-color: var(--br-accent);
+}
+
+body.dark-mode .btn-primary {
+  background: var(--br-accent);
+  color: #fff;
+}
+
+/* ============================================================
+   ONBOARDING GUIDE — PREMIÈRE INSTALLATION
+   (styles inchangés, nécessaires pour le fonctionnement)
+   ============================================================ */
+.onboarding-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 10000;
+  display: none;
+  pointer-events: none;
+}
+
+.onboarding-overlay.active {
+  display: block;
+}
+
+.onboarding-backdrop {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: transparent;
+  pointer-events: none;
+}
+
+.onboarding-step {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.onboarding-highlight {
+  position: absolute;
+  border-radius: var(--r-lg);
+  box-shadow:
+    0 0 0 3px var(--br-accent),
+    0 0 0 6px rgba(29, 153, 243, 0.28),
+    0 0 16px rgba(29, 153, 243, 0.45),
+    0 0 0 9999px rgba(0, 0, 0, 0.72);
+  animation: pulseHighlight 2s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 10001;
+}
+
+@keyframes pulseHighlight {
+  0%, 100% {
+    box-shadow:
+      0 0 0 3px var(--br-accent),
+      0 0 0 6px rgba(29, 153, 243, 0.28),
+      0 0 16px rgba(29, 153, 243, 0.45),
+      0 0 0 9999px rgba(0, 0, 0, 0.72);
+  }
+  50% {
+    box-shadow:
+      0 0 0 5px var(--br-accent),
+      0 0 0 10px rgba(29, 153, 243, 0.38),
+      0 0 24px rgba(29, 153, 243, 0.6),
+      0 0 0 9999px rgba(0, 0, 0, 0.72);
+  }
+}
+
+.onboarding-tooltip {
+  position: absolute;
+  background: var(--br-view);
+  border: 1px solid var(--br-accent);
+  border-radius: var(--r-xl);
+  padding: 20px;
+  max-width: 300px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+  z-index: 10002;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.onboarding-tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.onboarding-step-badge {
+  background: var(--br-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+.onboarding-tooltip-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--br-window-fg);
+}
+
+.onboarding-tooltip-text {
+  font-size: 13px;
+  color: var(--br-window-fg-dim);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.onboarding-tooltip-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.onboarding-btn {
+  padding: 7px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.onboarding-btn-primary {
+  background: var(--br-accent);
+  color: #fff;
+  border-color: var(--br-accent-dark);
+}
+
+.onboarding-btn-primary:hover {
+  background: var(--br-accent-hover);
+}
+
+.onboarding-btn-secondary {
+  background: var(--br-button);
+  color: var(--br-button-fg);
+  border-color: var(--br-border);
+}
+
+.onboarding-btn-secondary:hover {
+  border-color: var(--br-accent);
+}
+
+.onboarding-skip {
+  position: fixed;
+  top: 16px; right: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: var(--r-md);
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10003;
+  transition: background 0.12s ease;
+  pointer-events: auto;
+}
+
+.onboarding-skip:hover {
+  background: rgba(0, 0, 0, 0.78);
+}
+
+#tooltip-darkmode,
+#tooltip-apikey,
+#tooltip-howto {
+  top: auto;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 600px) {
+  .onboarding-tooltip {
+    max-width: 260px;
+    padding: 16px;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+  .onboarding-skip {
+    top: 8px; right: 8px;
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+}
+
+/* ============================================================
+   ONBOARDING STEP 4 — AVERTISSEMENT (rouge)
+   ============================================================ */
+.onboarding-dark-backdrop {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(120, 10, 20, 0.82);
+  pointer-events: auto;
+}
+
+.onboarding-tooltip-warning {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 440px;
+  width: calc(100% - 32px);
+  background: var(--br-view);
+  border: 2px solid #da4453;
+  border-radius: var(--r-xl);
+  padding: 24px;
+  box-shadow:
+    0 0 0 4px rgba(218, 68, 83, 0.22),
+    0 12px 40px rgba(0, 0, 0, 0.55);
+  pointer-events: auto;
+  z-index: 10002;
+  animation: warningPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes warningPop {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.88); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.onboarding-badge-danger {
+  background: #da4453 !important;
+}
+
+.onboarding-title-danger {
+  color: #da4453 !important;
+}
+
+.onboarding-warning-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 4px 0 20px;
+}
+
+.onboarding-warning-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  background: rgba(218, 68, 83, 0.07);
+  border: 1px solid rgba(218, 68, 83, 0.22);
+  border-left: 3px solid #da4453;
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+}
+
+.onboarding-warning-item svg {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  stroke: #da4453;
+  margin-top: 2px;
+}
+
+.warning-item-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.warning-item-text strong {
+  font-size: 13px;
+  font-weight: 700;
+  color: #da4453;
+  display: block;
+}
+
+.warning-item-text span {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--br-window-fg);
+}
+
+.onboarding-warning-item-info {
+  background: rgba(29, 153, 243, 0.07);
+  border-color: rgba(29, 153, 243, 0.22);
+  border-left-color: var(--br-accent);
+}
+
+.onboarding-warning-item-info svg {
+  stroke: var(--br-accent);
+}
+
+.onboarding-warning-item-info .warning-item-text strong {
+  color: var(--br-accent);
+}
+
+.onboarding-btn-danger {
+  background: #da4453;
+  color: #fff;
+  border-color: #b83241;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.onboarding-btn-danger:hover {
+  background: #e55464;
+  border-color: #da4453;
+  box-shadow: 0 2px 8px rgba(218, 68, 83, 0.45);
+}
+
+body.dark-mode .warning-item-text span {
+  color: var(--br-window-fg);
+}
