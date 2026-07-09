@@ -147,5 +147,39 @@
   "notifSensitiveFile": { "message": "Wykryto poufny plik" },
   "notifSensitiveFileMsg": { "message": "Skanowanie anulowane dla ochrony danych" },
   "statusSkippedSensitive": { "message": "Poufny plik - Skanowanie anulowane" },
-  "statusCancelled": { "message": "SKANOWANIE ANULOWANE" }
+  "statusCancelled": { "message": "SKANOWANIE ANULOWANE" },
+
+  "sectionPrivacy": {
+    "message": "Prywatność"
+  },
+  "lookupOnlyLabel": {
+    "message": "Tryb samej weryfikacji — nigdy nie wysyłaj plików"
+  },
+  "lookupOnlyHint": {
+    "message": "Każde pobranie jest sprawdzane w VirusTotal na podstawie skrótu SHA-256, bez wysyłania pliku. Nieznane pliki są tylko zgłaszane."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Nieznany plik — nie wysłano"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Nieznany w VirusTotal. Tryb samej weryfikacji zablokował wysyłkę."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Za duży do wysłania"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Nieznany w VirusTotal i powyżej limitu 32 MB API."
+  },
+  "statusNotUploaded": {
+    "message": "Nie wysłano"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Nieznany — nie wysłano"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Za duży — nie wysłano"
+  },
+  "linkReport": {
+    "message": "Raport VirusTotal"
+  }
 }

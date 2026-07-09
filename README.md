@@ -22,9 +22,9 @@ C'est là qu'intervient cette extension Firefox : elle s'en souvient pour vous. 
 
 **Elle surveille, vous décidez.** Chaque téléchargement terminé est analysé en arrière-plan. Fichier sain, suspect ou malveillant : une notification vous donne le verdict, et l'historique complet reste accessible d'un clic sur l'icône de la barre d'outils.
 
-**Elle vous montre le détail.** Pour chaque fichier analysé, vous pouvez déplier le rapport moteur par moteur : qui a détecté quoi, et sous quel nom. Pas de verdict opaque, vous voyez la même chose que sur le site de VirusTotal.
+**Elle vous montre le détail.** Pour chaque fichier analysé, vous pouvez déplier le rapport moteur par moteur : qui a détecté quoi, et sous quel nom. Un lien ouvre le rapport complet sur le site de VirusTotal (avis de la communauté, analyse comportementale). Pas de verdict opaque.
 
-**Elle protège vos documents personnels.** Un fichier envoyé sur VirusTotal devient consultable publiquement. Pour éviter les accidents, l'extension repère les noms de fichiers sensibles (relevés bancaires, documents d'identité, dossiers médicaux...) et refuse de les envoyer. Le scan est annulé, et l'historique vous le signale clairement.
+**Elle protège vos documents personnels.** Un fichier envoyé sur VirusTotal devient consultable publiquement. Pour éviter les accidents, l'extension repère les noms de fichiers sensibles (relevés bancaires, documents d'identité, dossiers médicaux...) et refuse de les envoyer. Et pour une tranquillité totale, un mode « vérification seule » interroge VirusTotal uniquement par empreinte SHA-256 : rien n'est jamais envoyé, les fichiers inconnus sont simplement signalés.
 
 **Elle sait se faire oublier.** Un bouton pause suspend la surveillance quand vous en avez besoin, et l'extension respecte d'elle-même les limites de l'API gratuite de VirusTotal. Pas de configuration, pas d'entretien.
 
@@ -66,7 +66,7 @@ Un bug, une idée, une traduction à améliorer ? Les [issues](https://github.co
 
 **VirusTotal File Scanner** is a Firefox extension that automatically checks every file you download against more than 70 antivirus engines through the public [VirusTotal](https://www.virustotal.com/) API. As soon as a download finishes, the file is analyzed in the background and the verdict arrives as a notification, with a full per-engine report available from the toolbar popup.
 
-It keeps your privacy in mind: your API key is encrypted and stored locally, the extension only ever talks to VirusTotal, and a built-in filter refuses to upload files whose names look sensitive (bank statements, ID documents, medical records...) since anything uploaded to VirusTotal becomes publicly searchable.
+It keeps your privacy in mind: your API key is encrypted and stored locally, the extension only ever talks to VirusTotal, and a built-in filter refuses to upload files whose names look sensitive (bank statements, ID documents, medical records...) since anything uploaded to VirusTotal becomes publicly searchable. A strict hash-check only mode goes further and never uploads anything at all: files are checked by their SHA-256 hash, and unknown ones are simply flagged.
 
 Setup takes three minutes: install it from [Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/virustotal-file-scanner/), grab a free API key from VirusTotal, and paste it into the options page, where a step-by-step guide walks you through it. The interface is available in eight languages, with a retro pixel art look in both light (orange and white) and dark (orange and black) modes.
 

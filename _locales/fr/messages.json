@@ -406,5 +406,39 @@
   },
   "onboardingWarningUnderstood": {
     "message": "J'ai compris ✓"
+  },
+
+  "sectionPrivacy": {
+    "message": "Confidentialité"
+  },
+  "lookupOnlyLabel": {
+    "message": "Mode vérification seule — ne jamais envoyer de fichiers"
+  },
+  "lookupOnlyHint": {
+    "message": "Chaque téléchargement est vérifié auprès de VirusTotal par son empreinte SHA-256, sans jamais envoyer le fichier. Les fichiers inconnus sont simplement signalés."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Fichier inconnu — non envoyé"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Inconnu de VirusTotal. Le mode vérification seule a empêché l'envoi."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Trop volumineux pour l'envoi"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Inconnu de VirusTotal et au-dessus de la limite de 32 MB de l'API."
+  },
+  "statusNotUploaded": {
+    "message": "Non envoyé"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Inconnu — non envoyé"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Trop gros — non envoyé"
+  },
+  "linkReport": {
+    "message": "Rapport VirusTotal"
   }
 }

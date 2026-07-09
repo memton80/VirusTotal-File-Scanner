@@ -118,6 +118,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // === MODE VÉRIFICATION SEULE ===
+  const lookupOnlyToggle = document.getElementById('lookup-only-toggle');
+  if (lookupOnlyToggle) {
+    lookupOnlyToggle.addEventListener('change', async () => {
+      await VTUtils.setLookupOnlyState(lookupOnlyToggle.checked);
+      console.log('[Options] Mode vérification seule:', lookupOnlyToggle.checked);
+    });
+  }
+
   // === CHARGEMENT INITIAL ===
   (async () => {
     try {
@@ -126,6 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const toggle = document.getElementById('dark-mode-toggle');
       if (toggle) toggle.checked = document.body.classList.contains('dark-mode');
+
+      const lookupToggle = document.getElementById('lookup-only-toggle');
+      if (lookupToggle) lookupToggle.checked = await VTUtils.isLookupOnlyEnabled();
       
       // Déchiffre la clé stockée (et migre l'ancien stockage en clair au passage)
       const key = await VTUtils.getApiKey();

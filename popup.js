@@ -166,21 +166,26 @@ async function renderLast() {
       const detections = VTUtils.sanitizeNumber(r.detections, 0);
       const totalEngines = VTUtils.sanitizeNumber(r.totalEngines, 0);
       
-      // === FICHIER SENSIBLE (SCAN IGNULÉ) ===
-      if (r.skipped && r.reason === 'sensitive') {
+      // === FICHIER IGNORÉ (sensible, inconnu non envoyé, trop gros) ===
+      if (r.skipped) {
+        const reason = r.reason || 'sensitive';
+        const isSensitive = reason === 'sensitive';
+
         const itemDiv = document.createElement('div');
         itemDiv.className = 'history-item skipped';
-        
-        // Badge "Annulé" dans le coin
+
+        // Bandeau dans le coin : "Scan annulé" ou "Non envoyé"
         const cancelledBanner = document.createElement('div');
         cancelledBanner.className = 'cancelled-banner';
-        cancelledBanner.textContent = VTUtils.t('statusCancelled');
+        cancelledBanner.textContent = isSensitive
+          ? VTUtils.t('statusCancelled')
+          : VTUtils.t('statusNotUploaded');
         itemDiv.appendChild(cancelledBanner);
-        
+
         const itemHeader = document.createElement('div');
         itemHeader.className = 'item-header';
         itemHeader.style.marginTop = '20px';
-        
+
         const itemFilename = document.createElement('div');
         itemFilename.className = 'item-filename';
         const fileIcon = VTIcons.fileText(14);
@@ -191,53 +196,56 @@ async function renderLast() {
         const filenameSpan = document.createElement('span');
         filenameSpan.title = safeFilename;
         filenameSpan.textContent = ' ' + safeFilename;
-        filenameSpan.style.textDecoration = 'line-through';
+        if (isSensitive) {
+          // Barré uniquement pour les fichiers bloqués par le filtre sensible
+          filenameSpan.style.textDecoration = 'line-through';
+        }
         filenameSpan.style.color = 'var(--br-window-fg-dim)';
         itemFilename.appendChild(filenameSpan);
-        
+
         const itemStatus = document.createElement('div');
         itemStatus.className = 'item-status';
-        // Icône bouclier barré pour indiquer protection/blocage
-        const shieldIcon = VTIcons.shieldAlert(18);
-        shieldIcon.style.stroke = 'var(--br-warning)';
-        itemStatus.appendChild(shieldIcon);
-        
+        let statusIcon;
+        if (isSensitive) {
+          statusIcon = VTIcons.shieldAlert(18);
+        } else if (reason === 'too_large') {
+          statusIcon = VTIcons.alertTriangle(18);
+        } else {
+          statusIcon = VTIcons.helpCircle(18);
+        }
+        statusIcon.style.stroke = 'var(--br-warning)';
+        itemStatus.appendChild(statusIcon);
+
         itemHeader.appendChild(itemFilename);
         itemHeader.appendChild(itemStatus);
-        
+
         const itemMeta = document.createElement('div');
         itemMeta.className = 'item-meta';
-        
+
         const itemDate = document.createElement('div');
         itemDate.className = 'item-date';
         const clockIcon = VTIcons.clock(12);
         clockIcon.style.stroke = 'var(--text-hint)';
         itemDate.appendChild(clockIcon);
         itemDate.appendChild(document.createTextNode(' ' + safeDate));
-        
+
         const skipBadge = document.createElement('div');
         skipBadge.className = 'detection-badge skipped';
-        // Créer l'icône SVG de manière sécurisée
-        const shieldSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        shieldSvg.setAttribute('width', '12');
-        shieldSvg.setAttribute('height', '12');
-        shieldSvg.setAttribute('viewBox', '0 0 24 24');
-        shieldSvg.setAttribute('fill', 'none');
-        shieldSvg.setAttribute('stroke', 'currentColor');
-        shieldSvg.setAttribute('stroke-width', '2');
-        shieldSvg.setAttribute('stroke-linecap', 'round');
-        shieldSvg.setAttribute('stroke-linejoin', 'round');
-        shieldSvg.style.verticalAlign = 'middle';
-        shieldSvg.style.marginRight = '4px';
-        const shieldPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        shieldPath.setAttribute('d', 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z');
-        shieldSvg.appendChild(shieldPath);
-        skipBadge.appendChild(shieldSvg);
-        skipBadge.appendChild(document.createTextNode(' ' + VTUtils.t('statusSkippedSensitive')));
-        
+        let badgeIcon;
+        if (isSensitive) badgeIcon = VTIcons.shieldCheck(12);
+        else if (reason === 'too_large') badgeIcon = VTIcons.alertTriangle(12);
+        else badgeIcon = VTIcons.helpCircle(12);
+        badgeIcon.style.verticalAlign = 'middle';
+        badgeIcon.style.marginRight = '4px';
+        skipBadge.appendChild(badgeIcon);
+        let badgeKey = 'statusSkippedSensitive';
+        if (reason === 'lookup_only') badgeKey = 'statusSkippedLookupOnly';
+        else if (reason === 'too_large') badgeKey = 'statusSkippedTooLarge';
+        skipBadge.appendChild(document.createTextNode(' ' + VTUtils.t(badgeKey)));
+
         itemMeta.appendChild(itemDate);
         itemMeta.appendChild(skipBadge);
-        
+
         itemDiv.appendChild(itemHeader);
         itemDiv.appendChild(itemMeta);
         listContainer.appendChild(itemDiv);
@@ -302,8 +310,22 @@ async function renderLast() {
       const detectionBadge = document.createElement('div');
       detectionBadge.className = `detection-badge ${badgeClass}`;
       detectionBadge.textContent = `${detections}/${totalEngines} ${VTUtils.t('detections')}`;
-      
+
       itemMeta.appendChild(itemDate);
+
+      // Lien vers le rapport complet sur virustotal.com
+      if (r.sha256 && /^[a-f0-9]{64}$/i.test(r.sha256)) {
+        const reportLink = document.createElement('a');
+        reportLink.className = 'report-link';
+        reportLink.href = `https://www.virustotal.com/gui/file/${r.sha256}`;
+        reportLink.target = '_blank';
+        reportLink.rel = 'noopener noreferrer';
+        reportLink.title = VTUtils.t('linkReport');
+        reportLink.appendChild(VTIcons.externalLink(10));
+        reportLink.appendChild(document.createTextNode(' ' + VTUtils.t('linkReport')));
+        itemMeta.appendChild(reportLink);
+      }
+
       itemMeta.appendChild(detectionBadge);
       
       itemDiv.appendChild(itemHeader);

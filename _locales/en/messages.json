@@ -406,5 +406,39 @@
   },
   "onboardingWarningUnderstood": {
     "message": "I understand ✓"
+  },
+
+  "sectionPrivacy": {
+    "message": "Privacy"
+  },
+  "lookupOnlyLabel": {
+    "message": "Hash-check only mode — never upload files"
+  },
+  "lookupOnlyHint": {
+    "message": "Every download is checked against VirusTotal using its SHA-256 hash, without ever uploading the file. Unknown files are simply flagged."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Unknown file — not uploaded"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Not known to VirusTotal. Hash-check only mode prevented the upload."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Too large to upload"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Not known to VirusTotal and above the API's 32 MB limit."
+  },
+  "statusNotUploaded": {
+    "message": "Not uploaded"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Unknown — not uploaded"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Too large — not uploaded"
+  },
+  "linkReport": {
+    "message": "VirusTotal report"
   }
 }

@@ -573,6 +573,39 @@ body.dark-mode .section-title {
 }
 
 /* ============================================================
+   LIEN VERS LE RAPPORT VIRUSTOTAL
+   ============================================================ */
+.report-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--px-orange-deep);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+body.dark-mode .report-link {
+  color: var(--px-orange);
+}
+
+.report-link:hover {
+  background: var(--px-hover);
+  border-bottom-style: solid;
+}
+
+.report-link svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+}
+
+/* ============================================================
    FICHIER SENSIBLE — bandeau "SCAN ANNULÉ"
    ============================================================ */
 .cancelled-banner {
