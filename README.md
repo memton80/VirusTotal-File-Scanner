@@ -1,110 +1,73 @@
-# 🛡️ VirusTotal File Scanner
+# VirusTotal File Scanner
 
 [![Version Firefox](https://img.shields.io/amo/v/virustotal-file-scanner?label=Firefox&style=for-the-badge&logo=firefox)](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
 [![Licence](https://img.shields.io/github/license/memton80/VirusTotal-File-Scanner?style=for-the-badge&label=Licence)](https://github.com/memton80/VirusTotal-File-Scanner/blob/main/LICENSE)
-[![Statut](https://img.shields.io/badge/Statut-Stable-blue?style=for-the-badge)](https://github.com/memton80/VirusTotal-File-Scanner)
+[![Statut](https://img.shields.io/badge/Statut-Stable-orange?style=for-the-badge)](https://github.com/memton80/VirusTotal-File-Scanner)
 
-**🇫🇷 Français**
+**Chaque fichier que vous téléchargez, passé au crible de plus de 70 antivirus. Automatiquement, sans rien faire.**
 
-**VirusTotal File Scanner** est une extension pour **Firefox** permettant d'analyser rapidement et simplement n'importe quel fichier via l'API publique de [VirusTotal](https://www.virustotal.com/).
-
-Cette extension ajoute une icône à votre barre d'outils. Cliquez dessus, sélectionnez un fichier, et l'extension l'enverra à VirusTotal pour analyse et vous affichera le résultat.
+*(An English summary is available [at the end of this page](#english).)*
 
 ---
 
-**🇬🇧 English**
+## L'idée
 
-**VirusTotal File Scanner** is a **Firefox** extension that allows you to quickly and easily scan any file using the public [VirusTotal](https://www.virustotal.com/) API.
+Télécharger un fichier, c'est toujours un petit acte de confiance. Ce programme d'installation est-il vraiment celui qu'il prétend être ? Cette archive contient-elle autre chose que ce qu'on vous a promis ?
 
-This extension adds an icon to your toolbar. Click it, select a file, and the extension will send it to VirusTotal for analysis and display the result.
+VirusTotal répond à cette question depuis des années : un service qui fait analyser un même fichier par plus de 70 moteurs antivirus (Kaspersky, BitDefender, ESET et bien d'autres) et croise leurs verdicts. Encore faut-il penser à s'en servir.
 
----
+C'est là qu'intervient cette extension Firefox : elle s'en souvient pour vous. Dès qu'un téléchargement se termine, le fichier est vérifié sur VirusTotal et le verdict arrive en notification. Vous n'avez rien à lancer, rien à copier-coller, rien à retenir.
 
-## 🚀 Fonctionnalités / Features
+## Ce qu'elle fait pour vous
 
-**🇫🇷**
-* **Analyse rapide :** Soumettez des fichiers à VirusTotal en deux clics.
-* **Intégration simple :** S'intègre directement dans la barre d'outils de Firefox.
-* **Léger et rapide :** Aucune ressource superflue.
+**Elle surveille, vous décidez.** Chaque téléchargement terminé est analysé en arrière-plan. Fichier sain, suspect ou malveillant : une notification vous donne le verdict, et l'historique complet reste accessible d'un clic sur l'icône de la barre d'outils.
 
-**🇬🇧**
-* **Quick Scan:** Submit files to VirusTotal in just two clicks.
-* **Simple Integration:** Fits directly into your Firefox toolbar.
-* **Lightweight and Fast:** No unnecessary resources.
+**Elle vous montre le détail.** Pour chaque fichier analysé, vous pouvez déplier le rapport moteur par moteur : qui a détecté quoi, et sous quel nom. Pas de verdict opaque, vous voyez la même chose que sur le site de VirusTotal.
 
----
+**Elle protège vos documents personnels.** Un fichier envoyé sur VirusTotal devient consultable publiquement. Pour éviter les accidents, l'extension repère les noms de fichiers sensibles (relevés bancaires, documents d'identité, dossiers médicaux...) et refuse de les envoyer. Le scan est annulé, et l'historique vous le signale clairement.
 
-## ⚙️ Installation / Installation
+**Elle sait se faire oublier.** Un bouton pause suspend la surveillance quand vous en avez besoin, et l'extension respecte d'elle-même les limites de l'API gratuite de VirusTotal. Pas de configuration, pas d'entretien.
 
-### Prérequis / Prerequisites
+**Elle parle votre langue.** Interface disponible en français, anglais, allemand, espagnol, italien, polonais, portugais et russe.
 
-**🇫🇷**
-* Navigateur [Firefox](https://www.mozilla.org/firefox/new/).
-* Une clé API VirusTotal (obtenue gratuitement sur [leur site](https://www.virustotal.com/)).
+## Une interface pixel art
 
-**🇬🇧**
-* [Firefox](https://www.mozilla.org/firefox/new/) browser.
-* A VirusTotal API Key (get one for free from [their site](https://www.virustotal.com/)).
+Depuis la version 1.8.5, l'extension arbore une interface rétro assumée : orange et blanc en mode clair, orange et noir en mode sombre. Coins carrés, cadres crantés façon 8-bit, ombres franches et notifications qui clignotent comme sur une borne d'arcade. La sécurité, c'est sérieux ; l'interface n'est pas obligée de l'être.
 
-### 1. Installation (Mozilla Add-ons)
+## Démarrer en trois minutes
 
-**🇫🇷**
-Le moyen le plus simple est d'installer l'extension depuis le catalogue officiel :
+1. **Installez l'extension** depuis le [catalogue officiel Mozilla Add-ons](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/).
+2. **Créez un compte gratuit** sur [VirusTotal.com](https://www.virustotal.com/) et récupérez votre clé API personnelle.
+3. **Collez la clé** dans la page d'options de l'extension. Un guide pas à pas vous accompagne au premier lancement.
 
-[**Installer depuis le Mozilla Add-ons Store**](https://addons.mozilla.org/fr/firefox/addon/virustotal-file-scanner/)
+C'est tout. Votre prochain téléchargement sera analysé automatiquement.
 
-**🇬🇧**
-The easiest way is to install the extension from the official add-ons store:
+## Vos données restent chez vous
 
-[**Install from the Mozilla Add-ons Store**](https://addons.mozilla.org/en-US/firefox/addon/virustotal-file-scanner/)
+- Votre clé API est stockée localement dans votre navigateur, jamais transmise à un tiers.
+- L'extension ne communique qu'avec VirusTotal, en HTTPS. Aucune télémétrie, aucune collecte.
+- Le code source est entièrement ouvert, dans ce dépôt, sous licence Mozilla Public License 2.0.
 
-### 2. Configuration
+**Une chose à garder en tête :** tout fichier envoyé sur VirusTotal devient public et consultable par n'importe qui. Le filtre de fichiers sensibles est un garde-fou, pas une garantie absolue. Ne comptez que sur vous pour les documents confidentiels.
 
-**🇫🇷**
-1. Après l'installation, faites un clic droit sur l'icône de l'extension et ouvrez la page **"Options"**.
-2. Entrez votre clé API VirusTotal personnelle dans le champ prévu à cet effet.
-3. Enregistrez. L'extension est prête à l'emploi.
+## Bon à savoir
 
-**🇬🇧**
-1. After installation, right-click the extension icon and open the **"Options"** page.
-2. Enter your personal VirusTotal API key in the required field.
-3. Save. The extension is ready to use.
+L'extension s'appuie sur l'API publique et gratuite de VirusTotal : 4 requêtes par minute, 500 par jour, fichiers jusqu'à 32 Mo. Ces limites sont gérées automatiquement, mais elles s'appliquent. Pour un usage intensif, VirusTotal propose des [offres payantes](https://support.virustotal.com/hc/en-us/articles/115002100149).
+
+Ce projet est indépendant : il n'est affilié ni à VirusTotal, ni à Google.
+
+## Envie de participer ?
+
+Un bug, une idée, une traduction à améliorer ? Les [issues](https://github.com/memton80/VirusTotal-File-Scanner/issues) et les pull requests sont les bienvenues. Le projet évolue régulièrement, et une version 2 est dans les cartons.
 
 ---
 
-## ⚠️ Avertissement / Warning
+## English
 
-* **API VirusTotal / VirusTotal API**
-    **🇫🇷** Cette extension utilise l'API publique de VirusTotal. Vous êtes soumis aux [limitations et conditions d'utilisation](https://support.virustotal.com/hc/en-us/articles/115002100149) de ce service (ex: nombre de requêtes par minute).
-    **🇬🇧** This extension uses the public VirusTotal API. You are subject to the [terms of use and limitations](https://support.virustotal.com/hc/en-us/articles/115002100149) of that service (e.g., number of requests per minute).
+**VirusTotal File Scanner** is a Firefox extension that automatically checks every file you download against more than 70 antivirus engines through the public [VirusTotal](https://www.virustotal.com/) API. As soon as a download finishes, the file is analyzed in the background and the verdict arrives as a notification, with a full per-engine report available from the toolbar popup.
 
-* **Affiliation / Affiliation**
-    **🇫🇷** Ce projet n'est pas affilié à Google ou VirusTotal.
-    **🇬🇧** This project is not affiliated with Google or VirusTotal.
+It keeps your privacy in mind: your API key is stored locally, the extension only ever talks to VirusTotal, and a built-in filter refuses to upload files whose names look sensitive (bank statements, ID documents, medical records...) since anything uploaded to VirusTotal becomes publicly searchable.
 
----
+Setup takes three minutes: install it from [Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/virustotal-file-scanner/), grab a free API key from VirusTotal, and paste it into the options page, where a step-by-step guide walks you through it. The interface is available in eight languages, with a retro pixel art look in both light (orange and white) and dark (orange and black) modes.
 
-## 💡 Contribuer / Contributing
-
-**🇫🇷**
-Les contributions sont les bienvenues ! Que ce soit pour signaler un bug, proposer une fonctionnalité ou améliorer le code.
-
-**🇬🇧**
-Contributions are welcome! Whether it's reporting a bug, suggesting a feature, or improving the code.
-
-1. **Fork** the repository.
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to the branch (`git push origin feature/AmazingFeature`).
-5. Open a **Pull Request**.
-
----
-
-## 🔜 Feuille de route / Roadmap
-
-* [x] Première version Alpha fonctionnelle. / First functional Alpha release.
-* [x] Amélioration de l'interface utilisateur (UI) et de l'expérience (UX). / Improve UI and UX.
-* [x] Gestion avancée des résultats d'analyse (rapport détaillé). / Advanced management of scan results (detailed report).
-* [x] Ajout d'un mode sombre. / Add dark mode.
-* [x] Traduction en anglais et autres langues (`_locales`). / Translation into English and other languages (`_locales`).
-* [ ] **Version 2 (V2)**
+The project is open source under the Mozilla Public License 2.0 and is affiliated with neither VirusTotal nor Google. Issues and pull requests are welcome.
