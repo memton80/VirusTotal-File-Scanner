@@ -1,11 +1,10 @@
 // === VirusTotal Auto Scanner - Optimisé ===
-// Version: 1.7.8
 
 const VT_UPLOAD_ENDPOINT = "https://www.virustotal.com/api/v3/files";
 const VT_ANALYSIS_ENDPOINT = "https://www.virustotal.com/api/v3/analyses";
 const VT_FILE_ENDPOINT = "https://www.virustotal.com/api/v3/files";
 
-console.log("VirusTotal Scanner loaded (v1.8.5)");
+console.log(`VirusTotal Scanner loaded (v${browser.runtime.getManifest().version})`);
 
 // === FICHERS SENSIBLES - MOTS-CLÉS À FILTRER ===
 const SENSITIVE_KEYWORDS = [
@@ -504,8 +503,11 @@ const POLL_MAX_ATTEMPTS = 30;
 const POLL_MAX_DELAY_SECONDS = 60;
 const POLL_INITIAL_DELAY_SECONDS = 5;
 
-// Regex permissive pour les IDs d'analyse VirusTotal (ex: u-<sha256>-<ts> ou base64url)
-const ANALYSIS_ID_REGEX = /^[a-zA-Z0-9_\-]{8,200}$/;
+// Regex permissive pour les IDs d'analyse VirusTotal.
+// Deux formats existent : u-<sha256>-<ts> (lookup) et base64 standard avec
+// padding pour les uploads (ex: "ZDA3...zNzM4NA==") — il faut donc accepter
+// aussi + / = en plus de l'alphabet base64url.
+const ANALYSIS_ID_REGEX = /^[A-Za-z0-9+/=_-]{8,300}$/;
 
 async function startPolling(analysisId, apiKey, itemMeta) {
   if (!analysisId || typeof analysisId !== 'string' || !ANALYSIS_ID_REGEX.test(analysisId)) {
