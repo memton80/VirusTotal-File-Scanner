@@ -483,6 +483,24 @@ body.dark-mode .info-box-text a {
   stroke: var(--px-warn);
 }
 
+/* Avertissement final en rouge — les fichiers envoyés deviennent publics */
+.security-warning {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border: 2px solid var(--px-danger);
+  border-left-width: 6px;
+  background: var(--px-danger-bg);
+  color: var(--px-danger);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.info-box-text .security-warning strong {
+  color: var(--px-danger);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
 /* ============================================================
    MESSAGES SUCCÈS / ERREUR
    ============================================================ */
