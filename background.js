@@ -4,6 +4,12 @@ const VT_UPLOAD_ENDPOINT = "https://www.virustotal.com/api/v3/files";
 const VT_ANALYSIS_ENDPOINT = "https://www.virustotal.com/api/v3/analyses";
 const VT_FILE_ENDPOINT = "https://www.virustotal.com/api/v3/files";
 
+// Limite d'upload de l'API publique VirusTotal
+const VT_MAX_UPLOAD_SIZE = 32 * 1024 * 1024;
+// Au-delà, on renonce même au lookup par hash (arrayBuffer() dupliquerait
+// un blob déjà énorme en mémoire)
+const VT_MAX_HASH_SIZE = 512 * 1024 * 1024;
+
 console.log(`VirusTotal Scanner loaded (v${browser.runtime.getManifest().version})`);
 
 // === FICHERS SENSIBLES - MOTS-CLÉS À FILTRER ===
@@ -197,17 +203,6 @@ browser.downloads.onChanged.addListener(async (delta) => {
       const blob = await resp.blob();
       console.log(`Blob récupéré, taille: ${blob.size} bytes (${(blob.size/1024/1024).toFixed(2)} MB)`);
       
-      const maxSize = 32 * 1024 * 1024;
-      if (blob.size > maxSize) {
-        console.log("Fichier trop gros");
-        VTUtils.notify(
-          `vt-size-${item.id}`,
-          VTUtils.t('notifFileTooLarge'),
-          `${(blob.size / 1024 / 1024).toFixed(2)} ${VTUtils.t('notifFileTooLargeMsg')}`
-        );
-        return;
-      }
-      
       if (blob.size === 0) {
         console.log("Fichier vide");
         VTUtils.notify(
@@ -217,7 +212,24 @@ browser.downloads.onChanged.addListener(async (delta) => {
         );
         return;
       }
-      
+
+      if (blob.size > VT_MAX_HASH_SIZE) {
+        console.log("Fichier trop gros, même pour un lookup par hash");
+        VTUtils.notify(
+          `vt-size-${item.id}`,
+          VTUtils.t('notifFileTooLarge'),
+          `${(blob.size / 1024 / 1024).toFixed(2)} ${VTUtils.t('notifFileTooLargeMsg')}`
+        );
+        return;
+      }
+
+      // Trop gros pour l'upload (limite API) : le lookup par hash reste
+      // possible, un fichier déjà connu de VirusTotal sera quand même vérifié
+      const tooLargeForUpload = blob.size > VT_MAX_UPLOAD_SIZE;
+
+      // Mode vérification seule : le fichier ne sera jamais envoyé
+      const lookupOnly = await VTUtils.isLookupOnlyEnabled();
+
       // Calcul SHA-256 et vérification cache
       const sha256 = await VTUtils.calculateSHA256(blob);
       
@@ -296,7 +308,43 @@ browser.downloads.onChanged.addListener(async (delta) => {
         }
       }
       
-      // Si pas en cache et pas trouvé sur VT, upload normal
+      // Pas en cache et inconnu de VirusTotal — l'upload serait la seule option
+      if (tooLargeForUpload) {
+        console.log("Inconnu de VirusTotal et au-dessus de la limite d'upload (32 MB)");
+        VTUtils.notify(
+          `vt-size-${item.id}`,
+          VTUtils.t('notifTooLargeUnknown'),
+          `${safeFilename}\n${VTUtils.t('notifTooLargeUnknownMsg')}`
+        );
+        await scanHistory.save({
+          filename: cleanFilename,
+          detections: -1,
+          totalEngines: 0,
+          sha256: sha256,
+          skipped: true,
+          reason: 'too_large'
+        });
+        return;
+      }
+
+      if (lookupOnly) {
+        console.log("[Vérification seule] Fichier inconnu, envoi refusé");
+        VTUtils.notify(
+          `vt-lookuponly-${item.id}`,
+          VTUtils.t('notifLookupOnlySkip'),
+          `${safeFilename}\n${VTUtils.t('notifLookupOnlySkipMsg')}`
+        );
+        await scanHistory.save({
+          filename: cleanFilename,
+          detections: -1,
+          totalEngines: 0,
+          sha256: sha256,
+          skipped: true,
+          reason: 'lookup_only'
+        });
+        return;
+      }
+
       console.log("Fichier non trouvé, upload nécessaire...");
       VTUtils.notify(
         `vt-start-${item.id}`, 

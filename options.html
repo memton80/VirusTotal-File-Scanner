@@ -93,6 +93,31 @@
       </div>
     </div>
 
+    <!-- Confidentialité : mode vérification seule -->
+    <div class="card card-full">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 12 15 16 10"/>
+        </svg>
+        <span data-i18n="sectionPrivacy">Confidentialité</span>
+      </div>
+      <div class="theme-toggle">
+        <span class="toggle-label" data-i18n="lookupOnlyLabel">Mode vérification seule — ne jamais envoyer de fichiers</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="lookup-only-toggle">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="form-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span data-i18n="lookupOnlyHint">Chaque téléchargement est vérifié auprès de VirusTotal par son empreinte SHA-256, sans jamais envoyer le fichier. Les fichiers inconnus sont simplement signalés.</span>
+      </div>
+    </div>
+
     <div class="card info-box">
       <div class="info-box-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

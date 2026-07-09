@@ -197,5 +197,39 @@
   "notifSensitiveFile": { "message": "Arquivo sensível detectado" },
   "notifSensitiveFileMsg": { "message": "Verificação cancelada para proteção de dados" },
   "statusSkippedSensitive": { "message": "Arquivo sensível - Verificação cancelada" },
-  "statusCancelled": { "message": "VERIFICAÇÃO CANCELADA" }
+  "statusCancelled": { "message": "VERIFICAÇÃO CANCELADA" },
+
+  "sectionPrivacy": {
+    "message": "Privacidade"
+  },
+  "lookupOnlyLabel": {
+    "message": "Modo só verificação — nunca enviar ficheiros"
+  },
+  "lookupOnlyHint": {
+    "message": "Cada transferência é verificada no VirusTotal pelo seu hash SHA-256, sem nunca enviar o ficheiro. Os ficheiros desconhecidos são apenas assinalados."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Ficheiro desconhecido — não enviado"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Desconhecido do VirusTotal. O modo só verificação impediu o envio."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Demasiado grande para enviar"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Desconhecido do VirusTotal e acima do limite de 32 MB da API."
+  },
+  "statusNotUploaded": {
+    "message": "Não enviado"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Desconhecido — não enviado"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Demasiado grande — não enviado"
+  },
+  "linkReport": {
+    "message": "Relatório VirusTotal"
+  }
 }

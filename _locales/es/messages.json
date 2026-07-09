@@ -197,5 +197,39 @@
   "notifSensitiveFile": { "message": "Archivo sensible detectado" },
   "notifSensitiveFileMsg": { "message": "Escaneo cancelado por protección de datos" },
   "statusSkippedSensitive": { "message": "Archivo sensible - Escáner cancelado" },
-  "statusCancelled": { "message": "ESCÁNER CANCELADO" }
+  "statusCancelled": { "message": "ESCÁNER CANCELADO" },
+
+  "sectionPrivacy": {
+    "message": "Privacidad"
+  },
+  "lookupOnlyLabel": {
+    "message": "Modo solo verificación — nunca subir archivos"
+  },
+  "lookupOnlyHint": {
+    "message": "Cada descarga se comprueba en VirusTotal mediante su hash SHA-256, sin subir nunca el archivo. Los archivos desconocidos simplemente se señalan."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Archivo desconocido — no subido"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Desconocido para VirusTotal. El modo solo verificación impidió la subida."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Demasiado grande para subir"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Desconocido para VirusTotal y por encima del límite de 32 MB de la API."
+  },
+  "statusNotUploaded": {
+    "message": "No subido"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Desconocido — no subido"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Demasiado grande — no subido"
+  },
+  "linkReport": {
+    "message": "Informe de VirusTotal"
+  }
 }

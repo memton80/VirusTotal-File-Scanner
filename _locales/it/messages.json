@@ -144,5 +144,39 @@
   "notifSensitiveFile": { "message": "File sensibile rilevato" },
   "notifSensitiveFileMsg": { "message": "Scansione annullata per protezione dati" },
   "statusSkippedSensitive": { "message": "File sensibile - Scansione annullata" },
-  "statusCancelled": { "message": "SCANSIONE ANNULLATA" }
+  "statusCancelled": { "message": "SCANSIONE ANNULLATA" },
+
+  "sectionPrivacy": {
+    "message": "Privacy"
+  },
+  "lookupOnlyLabel": {
+    "message": "Modalità solo verifica — non caricare mai i file"
+  },
+  "lookupOnlyHint": {
+    "message": "Ogni download viene verificato su VirusTotal tramite il suo hash SHA-256, senza mai caricare il file. I file sconosciuti vengono solo segnalati."
+  },
+  "notifLookupOnlySkip": {
+    "message": "File sconosciuto — non caricato"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Sconosciuto a VirusTotal. La modalità solo verifica ha impedito il caricamento."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Troppo grande per il caricamento"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Sconosciuto a VirusTotal e oltre il limite di 32 MB dell'API."
+  },
+  "statusNotUploaded": {
+    "message": "Non caricato"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Sconosciuto — non caricato"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Troppo grande — non caricato"
+  },
+  "linkReport": {
+    "message": "Rapporto VirusTotal"
+  }
 }

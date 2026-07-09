@@ -147,5 +147,39 @@
   "notifSensitiveFile": { "message": "Обнаружен конфиденциальный файл" },
   "notifSensitiveFileMsg": { "message": "Сканирование отменено для защиты данных" },
   "statusSkippedSensitive": { "message": "Конфиденциальный файл - Сканирование отменено" },
-  "statusCancelled": { "message": "СКАНИРОВАНИЕ ОТМЕНЕНО" }
+  "statusCancelled": { "message": "СКАНИРОВАНИЕ ОТМЕНЕНО" },
+
+  "sectionPrivacy": {
+    "message": "Конфиденциальность"
+  },
+  "lookupOnlyLabel": {
+    "message": "Режим только проверки — никогда не отправлять файлы"
+  },
+  "lookupOnlyHint": {
+    "message": "Каждая загрузка проверяется в VirusTotal по хэшу SHA-256, сам файл никогда не отправляется. Неизвестные файлы просто помечаются."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Неизвестный файл — не отправлен"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "Неизвестен VirusTotal. Режим только проверки заблокировал отправку."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Слишком большой для отправки"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "Неизвестен VirusTotal и превышает лимит API в 32 МБ."
+  },
+  "statusNotUploaded": {
+    "message": "Не отправлен"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Неизвестный — не отправлен"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Слишком большой — не отправлен"
+  },
+  "linkReport": {
+    "message": "Отчёт VirusTotal"
+  }
 }

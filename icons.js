@@ -174,6 +174,17 @@ const VTIcons = {
     return svg;
   },
 
+  // External-link (lien vers le rapport VirusTotal)
+  externalLink(size = 16) {
+    const svg = this.createBaseSVG(size);
+    svg.appendChild(this.createSVGElement('path', {
+      d: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'
+    }));
+    svg.appendChild(this.createSVGElement('polyline', { points: '15 3 21 3 21 9' }));
+    svg.appendChild(this.createSVGElement('line', { x1: 10, y1: 14, x2: 21, y2: 3 }));
+    return svg;
+  },
+
   // Shield-check (sécurisé/protégé)
   shieldCheck(size = 16) {
     const svg = this.createBaseSVG(size);

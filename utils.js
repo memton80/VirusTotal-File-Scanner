@@ -139,6 +139,21 @@ const VTUtils = {
     await browser.storage.local.set({ scanning_enabled: enabled });
   },
 
+  // === MODE VÉRIFICATION SEULE (lookup par hash, jamais d'upload) ===
+  async isLookupOnlyEnabled() {
+    try {
+      const r = await browser.storage.local.get('lookup_only');
+      return r.lookup_only === true;
+    } catch (err) {
+      console.error("[Scan] Erreur lecture mode vérification seule:", err);
+      return false;
+    }
+  },
+
+  async setLookupOnlyState(enabled) {
+    await browser.storage.local.set({ lookup_only: enabled === true });
+  },
+
   // === CHIFFREMENT DE LA CLÉ API (AES-256-GCM) ===
   // La clé API n'est plus stockée en clair dans storage.local : elle est
   // chiffrée avec un CryptoKey AES-256-GCM NON extractible, rangé dans
@@ -337,6 +352,8 @@ const toggleTheme = VTUtils.toggleTheme.bind(VTUtils);
 const notify = VTUtils.notify.bind(VTUtils);
 const isScanningEnabled = VTUtils.isScanningEnabled.bind(VTUtils);
 const setScanningState = VTUtils.setScanningState.bind(VTUtils);
+const isLookupOnlyEnabled = VTUtils.isLookupOnlyEnabled.bind(VTUtils);
+const setLookupOnlyState = VTUtils.setLookupOnlyState.bind(VTUtils);
 const getApiKey = VTUtils.getApiKey.bind(VTUtils);
 const setApiKey = VTUtils.setApiKey.bind(VTUtils);
 const clearApiKey = VTUtils.clearApiKey.bind(VTUtils);

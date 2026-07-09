@@ -146,5 +146,39 @@
   "onboardingWarningFilter": { "message": "Die automatische Erkennung sensibler Dateien kann einige Dateien übersehen. Bleib wachsam und überprüfe immer den Inhalt, bevor du wichtige Dateien herunterlädst." },
   "onboardingWarningPauseTitle": { "message": "Scan pausierbar" },
   "onboardingWarningPause": { "message": "Du kannst das Scannen jederzeit über das Popup pausieren. Während der Pause heruntergeladene Dateien werden nicht gescannt." },
-  "onboardingWarningUnderstood": { "message": "Verstanden ✓" }
+  "onboardingWarningUnderstood": { "message": "Verstanden ✓" },
+
+  "sectionPrivacy": {
+    "message": "Datenschutz"
+  },
+  "lookupOnlyLabel": {
+    "message": "Nur-Prüfung-Modus — niemals Dateien hochladen"
+  },
+  "lookupOnlyHint": {
+    "message": "Jeder Download wird anhand seines SHA-256-Hashes bei VirusTotal geprüft, ohne die Datei jemals hochzuladen. Unbekannte Dateien werden nur gemeldet."
+  },
+  "notifLookupOnlySkip": {
+    "message": "Unbekannte Datei — nicht hochgeladen"
+  },
+  "notifLookupOnlySkipMsg": {
+    "message": "VirusTotal unbekannt. Der Nur-Prüfung-Modus hat den Upload verhindert."
+  },
+  "notifTooLargeUnknown": {
+    "message": "Zu groß zum Hochladen"
+  },
+  "notifTooLargeUnknownMsg": {
+    "message": "VirusTotal unbekannt und über dem 32-MB-Limit der API."
+  },
+  "statusNotUploaded": {
+    "message": "Nicht hochgeladen"
+  },
+  "statusSkippedLookupOnly": {
+    "message": "Unbekannt — nicht hochgeladen"
+  },
+  "statusSkippedTooLarge": {
+    "message": "Zu groß — nicht hochgeladen"
+  },
+  "linkReport": {
+    "message": "VirusTotal-Bericht"
+  }
 }
