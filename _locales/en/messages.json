@@ -85,7 +85,7 @@
     "message": "Paste your VirusTotal API key here (64 hexadecimal characters)"
   },
   "hintApiKey": {
-    "message": "Your key is stored locally in your browser and encrypted by Firefox"
+    "message": "Your key is encrypted (AES-256-GCM) and stored locally in your browser"
   },
   "btnSaveKey": {
     "message": "Save key"
@@ -139,7 +139,7 @@
     "message": "Data protection:"
   },
   "infoSecurityPoint1": {
-    "message": "Your API key is stored locally and encrypted by Firefox"
+    "message": "Your API key is encrypted locally (AES-256-GCM) and never leaves your browser"
   },
   "infoSecurityPoint2": {
     "message": "All communications use HTTPS (TLS 1.3)"

@@ -44,7 +44,7 @@ C'est tout. Votre prochain téléchargement sera analysé automatiquement.
 
 ## Vos données restent chez vous
 
-- Votre clé API est stockée localement dans votre navigateur, jamais transmise à un tiers.
+- Votre clé API est chiffrée (AES-256-GCM) et stockée localement dans votre navigateur, jamais transmise à un tiers.
 - L'extension ne communique qu'avec VirusTotal, en HTTPS. Aucune télémétrie, aucune collecte.
 - Le code source est entièrement ouvert, dans ce dépôt, sous licence Mozilla Public License 2.0.
 
@@ -66,7 +66,7 @@ Un bug, une idée, une traduction à améliorer ? Les [issues](https://github.co
 
 **VirusTotal File Scanner** is a Firefox extension that automatically checks every file you download against more than 70 antivirus engines through the public [VirusTotal](https://www.virustotal.com/) API. As soon as a download finishes, the file is analyzed in the background and the verdict arrives as a notification, with a full per-engine report available from the toolbar popup.
 
-It keeps your privacy in mind: your API key is stored locally, the extension only ever talks to VirusTotal, and a built-in filter refuses to upload files whose names look sensitive (bank statements, ID documents, medical records...) since anything uploaded to VirusTotal becomes publicly searchable.
+It keeps your privacy in mind: your API key is encrypted and stored locally, the extension only ever talks to VirusTotal, and a built-in filter refuses to upload files whose names look sensitive (bank statements, ID documents, medical records...) since anything uploaded to VirusTotal becomes publicly searchable.
 
 Setup takes three minutes: install it from [Mozilla Add-ons](https://addons.mozilla.org/en-US/firefox/addon/virustotal-file-scanner/), grab a free API key from VirusTotal, and paste it into the options page, where a step-by-step guide walks you through it. The interface is available in eight languages, with a retro pixel art look in both light (orange and white) and dark (orange and black) modes.
 

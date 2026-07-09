@@ -521,7 +521,7 @@ async function startPolling(analysisId, apiKey, itemMeta) {
   }
 
   const key = `${POLL_KEY_PREFIX}${analysisId}`;
-  // La clé API N'est PAS stockée ici — elle est lue fraîchement depuis vt_api_key à chaque poll.
+  // La clé API N'est PAS stockée ici — elle est relue (et déchiffrée) via VTUtils.getApiKey() à chaque poll.
   await browser.storage.local.set({
     [key]: {
       analysisId,
@@ -874,6 +874,10 @@ async function fetchFileReportBySha(sha256, apiKey, itemMeta) {
 (async () => {
   console.log("Initialisation de l'extension...");
   await updateIcon();
+
+  // Migre la clé API en clair (versions <= 1.8.7) vers le stockage chiffré
+  // dès le démarrage — getApiKey() s'en charge et renvoie null si absente
+  await VTUtils.getApiKey();
 
   // Reprendre les polls en attente (cas où le background script a été tué)
   const all = await browser.storage.local.get();
