@@ -1,4 +1,5 @@
-/* === KDE Plasma 6 / Breeze — VirusTotal Scanner === */
+/* === PIXEL ART UI — VirusTotal Scanner ===
+   Mode clair : orange & blanc — Mode sombre : orange & noir */
 
 * {
   margin: 0;
@@ -7,124 +8,149 @@
 }
 
 /* ============================================================
-   PALETTE BREEZE EXACTE (tirée du thème KDE source)
+   PALETTE PIXEL ART — MODE CLAIR (orange / blanc)
    ============================================================ */
 :root {
-  --br-accent:         #1d99f3;
-  --br-accent-hover:   #45c0ed;
-  --br-accent-dark:    #1a8ad9;
+  /* Orange signature */
+  --px-orange:         #ff7a00;
+  --px-orange-bright:  #ffa243;
+  --px-orange-deep:    #c95d00;
+  --px-orange-darker:  #8a3d00;
 
-  /* Window — fond de fenêtre */
-  --br-window:         #eff0f1;
-  --br-window-fg:      #232629;
-  --br-window-fg-dim:  #5a5d61;
+  /* Surfaces */
+  --px-bg:             #ffffff;
+  --px-bg-alt:         #fff2e3;
+  --px-fg:             #2b1704;
+  --px-fg-dim:         #9c6b3c;
 
-  /* View — zones de liste / lecture */
-  --br-view:           #fcfcfc;
-  --br-view-fg:        #232629;
+  /* En-tête (toujours orange) */
+  --px-header-bg:      #ff7a00;
+  --px-header-fg:      #ffffff;
 
-  /* Complementary — panel / titlebar (toujours sombre) */
-  --br-panel:          #31363b;
-  --br-panel-fg:       #eff0f1;
-  --br-panel-fg-dim:   rgba(239, 240, 241, 0.55);
+  /* Bordures / séparateurs / ombres dures */
+  --px-border:         #ff7a00;
+  --px-border-strong:  #c95d00;
+  --px-separator:      #ffd9b3;
+  --px-shadow:         #ffd9b3;
 
-  /* Panel en mode pause */
-  --br-panel-pause:    #6b3c00;
+  /* Survol */
+  --px-hover:          rgba(255, 122, 0, 0.08);
 
   /* Sémantique */
-  --br-positive:       #27ae60;
-  --br-positive-bg:    rgba(39, 174, 96, 0.11);
-  --br-warning:        #f67400;
-  --br-warning-bg:     rgba(246, 116, 0, 0.11);
-  --br-negative:       #da4453;
-  --br-negative-bg:    rgba(218, 68, 83, 0.11);
+  --px-safe:           #1f9d44;
+  --px-safe-bg:        rgba(31, 157, 68, 0.12);
+  --px-warn:           #b07d00;
+  --px-warn-bg:        rgba(197, 145, 0, 0.13);
+  --px-danger:         #d32f2f;
+  --px-danger-bg:      rgba(211, 47, 47, 0.10);
 
-  /* Bordures / séparateurs */
-  --br-separator:      rgba(0, 0, 0, 0.08);
-  --br-border:         rgba(0, 0, 0, 0.16);
+  /* Police pixel / terminal */
+  --px-font: ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono",
+             "Roboto Mono", "Courier New", monospace;
 
-  /* Hover Plasma */
-  --br-hover:          rgba(61, 174, 233, 0.10);
-
-  /* Rayons — Breeze utilise des petits rayons */
-  --r-sm: 3px;
-  --r-md: 4px;
-  --r-lg: 6px;
+  /* Alias utilisés par popup.js (styles inline) */
+  --br-warning:        var(--px-warn);
+  --br-window-fg-dim:  var(--px-fg-dim);
+  --text-hint:         var(--px-fg-dim);
 }
 
 /* ============================================================
-   BREEZE DARK
+   MODE SOMBRE (orange / noir)
    ============================================================ */
 body.dark-mode {
-  --br-window:         #2a2e32;
-  --br-window-fg:      #eff0f1;
-  --br-window-fg-dim:  #9fa3a8;
+  --px-orange:         #ff8c1f;
+  --px-orange-bright:  #ffb45c;
+  --px-orange-deep:    #d96f00;
+  --px-orange-darker:  #8a3d00;
 
-  --br-view:           #232629;
-  --br-view-fg:        #eff0f1;
+  --px-bg:             #0d0904;
+  --px-bg-alt:         #1c1207;
+  --px-fg:             #ffe3c2;
+  --px-fg-dim:         #c08c55;
 
-  --br-panel:          #1b1e20;
-  --br-panel-fg:       #eff0f1;
-  --br-panel-fg-dim:   rgba(239, 240, 241, 0.52);
+  --px-header-bg:      #ff8c1f;
+  --px-header-fg:      #140a02;
 
-  --br-panel-pause:    #3d2200;
+  --px-border:         #ff8c1f;
+  --px-border-strong:  #ff8c1f;
+  --px-separator:      #3a2510;
+  --px-shadow:         #000000;
 
-  --br-positive-bg:    rgba(39, 174, 96, 0.16);
-  --br-warning-bg:     rgba(246, 116, 0, 0.16);
-  --br-negative-bg:    rgba(218, 68, 83, 0.16);
+  --px-hover:          rgba(255, 140, 31, 0.12);
 
-  --br-separator:      rgba(255, 255, 255, 0.07);
-  --br-border:         rgba(255, 255, 255, 0.13);
-
-  --br-hover:          rgba(61, 174, 233, 0.12);
+  --px-safe:           #35d465;
+  --px-safe-bg:        rgba(53, 212, 101, 0.14);
+  --px-warn:           #ffc21a;
+  --px-warn-bg:        rgba(255, 194, 26, 0.12);
+  --px-danger:         #ff5252;
+  --px-danger-bg:      rgba(255, 82, 82, 0.14);
 }
 
 /* ============================================================
    BODY
    ============================================================ */
 body {
-  font-family: "Noto Sans", "Oxygen", system-ui, -apple-system, sans-serif;
+  font-family: var(--px-font);
   width: 500px;
   max-height: 620px;
-  background: var(--br-window);
-  color: var(--br-window-fg);
-  font-size: 13px;
-  line-height: 1.4;
-  -webkit-font-smoothing: antialiased;
+  background: var(--px-bg);
+  color: var(--px-fg);
+  font-size: 12px;
+  line-height: 1.45;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  /* Rendu net, sans lissage superflu */
+  -webkit-font-smoothing: none;
+}
+
+/* Focus clavier rétro */
+:focus-visible {
+  outline: 2px dashed var(--px-orange);
+  outline-offset: 2px;
 }
 
 /* ============================================================
-   HEADER — panel "complementary" Plasma (toujours sombre)
+   HEADER — bandeau orange façon borne d'arcade
    ============================================================ */
 .header {
-  background: var(--br-panel);
-  color: var(--br-panel-fg);
+  background: var(--px-header-bg);
+  color: var(--px-header-fg);
   padding: 0 8px 0 12px;
-  height: 46px;
-  min-height: 46px;
+  height: 48px;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
   flex-shrink: 0;
-  transition: background 0.18s ease;
+  border-bottom: 4px solid var(--px-orange-darker);
+  /* Biseau pixel : lumière en haut, ombre en bas */
+  box-shadow: inset 0 3px 0 rgba(255, 255, 255, 0.28),
+              inset 0 -3px 0 rgba(0, 0, 0, 0.18);
 }
 
+/* Pause = bandes hachurées orange / noir */
 .header.paused {
-  background: var(--br-panel-pause);
+  background: repeating-linear-gradient(
+    45deg,
+    #201004 0px, #201004 12px,
+    var(--px-orange) 12px, var(--px-orange) 24px
+  );
+  color: #ffffff;
+  box-shadow: none;
 }
 
 .header-title {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1px;
-  color: var(--br-panel-fg);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: inherit;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
   overflow: hidden;
   flex: 1;
 }
@@ -136,26 +162,27 @@ body {
 }
 
 .header-icon {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
-  background: var(--br-accent);
-  border-radius: var(--r-md);
+  background: var(--px-bg);
+  border: 2px solid var(--px-orange-darker);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .header-icon svg {
-  width: 14px;
-  height: 14px;
-  stroke: #fff;
+  width: 15px;
+  height: 15px;
+  stroke: var(--px-orange);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 1px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
@@ -167,36 +194,37 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border: 1px solid transparent;
-  border-radius: var(--r-md);
+  border: 2px solid transparent;
+  border-radius: 0;
   font-family: inherit;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
-  transition: background 0.1s ease, border-color 0.1s ease, opacity 0.1s ease;
+  transition: none;
   line-height: 1;
 }
 
-/* Bouton icône dans le header — Plasma toolbar button */
+/* Bouton icône dans le header */
 .btn-icon {
   width: 32px;
   height: 32px;
   padding: 0;
   background: transparent;
-  color: var(--br-panel-fg);
+  color: inherit;
   border-color: transparent;
 }
 
 .btn-icon svg {
   width: 16px;
   height: 16px;
-  opacity: 0.72;
-  transition: opacity 0.1s ease;
+  opacity: 0.85;
 }
 
 .btn-icon:hover {
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.10);
+  background: rgba(0, 0, 0, 0.18);
+  border-color: rgba(0, 0, 0, 0.35);
 }
 
 .btn-icon:hover svg {
@@ -204,26 +232,32 @@ body {
 }
 
 .btn-icon:active {
-  background: rgba(255, 255, 255, 0.07);
+  transform: translate(1px, 1px);
 }
 
-/* État pause actif — icône play tintée */
+/* Icône play clignotante quand la surveillance est en pause */
 .btn-icon.state-paused svg {
   opacity: 1;
-  stroke: #f39c12;
+  stroke: #ffffff;
+  animation: pxBlink 1s steps(2, start) infinite;
 }
 
-/* Boutons pour la page options */
+/* Boutons pleins (réutilisés par la page options) */
 .btn-primary {
-  padding: 7px 14px;
-  background: var(--br-accent);
-  color: #fff;
-  border-color: var(--br-accent-dark);
+  padding: 8px 14px;
+  background: var(--px-orange);
+  color: #ffffff;
+  border-color: var(--px-orange-darker);
+  box-shadow: 3px 3px 0 var(--px-shadow);
 }
 
 .btn-primary:hover {
-  background: var(--br-accent-hover);
-  border-color: var(--br-accent);
+  background: var(--px-orange-bright);
+}
+
+.btn-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }
 
 .btn-primary:disabled {
@@ -232,42 +266,53 @@ body {
 }
 
 .btn-secondary {
-  padding: 7px 14px;
-  background: var(--br-window);
-  color: var(--br-window-fg);
-  border-color: var(--br-border);
+  padding: 8px 14px;
+  background: var(--px-bg);
+  color: var(--px-fg);
+  border-color: var(--px-border-strong);
+  box-shadow: 3px 3px 0 var(--px-shadow);
 }
 
 .btn-secondary:hover {
-  border-color: var(--br-accent);
-  color: var(--br-accent);
+  color: var(--px-orange-deep);
+}
+
+.btn-secondary:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }
 
 .btn-danger {
-  padding: 7px 14px;
-  background: transparent;
-  color: var(--br-negative);
-  border-color: rgba(218, 68, 83, 0.35);
+  padding: 8px 14px;
+  background: var(--px-bg);
+  color: var(--px-danger);
+  border-color: var(--px-danger);
+  box-shadow: 3px 3px 0 var(--px-shadow);
 }
 
 .btn-danger:hover {
-  background: var(--br-negative-bg);
-  border-color: var(--br-negative);
+  background: var(--px-danger);
+  color: #ffffff;
+}
+
+.btn-danger:active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
 }
 
 /* Anciens boutons pause/resume (si jamais utilisés ailleurs) */
 .btn-pause {
   padding: 6px 12px;
-  background: var(--br-warning-bg);
-  color: var(--br-warning);
-  border-color: rgba(246, 116, 0, 0.35);
+  background: var(--px-warn-bg);
+  color: var(--px-warn);
+  border-color: var(--px-warn);
 }
 
 .btn-resume {
   padding: 6px 12px;
-  background: var(--br-positive-bg);
-  color: var(--br-positive);
-  border-color: rgba(39, 174, 96, 0.35);
+  background: var(--px-safe-bg);
+  color: var(--px-safe);
+  border-color: var(--px-safe);
 }
 
 /* ============================================================
@@ -281,18 +326,20 @@ body {
 }
 
 /* ============================================================
-   BANNIÈRE PAUSE — style Plasma inline message
+   BANNIÈRE PAUSE
    ============================================================ */
 .status-banner {
-  background: var(--br-warning-bg);
-  border-bottom: 1px solid rgba(246, 116, 0, 0.22);
+  background: var(--px-warn-bg);
+  border-bottom: 2px solid var(--px-warn);
   padding: 7px 12px;
   display: none;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--br-warning);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--px-warn);
   flex-shrink: 0;
 }
 
@@ -308,63 +355,74 @@ body {
 .status-icon svg {
   width: 14px;
   height: 14px;
-  stroke: var(--br-warning);
-  animation: plasmaPulse 2s ease-in-out infinite;
+  stroke: var(--px-warn);
+  animation: pxBlink 1s steps(2, start) infinite;
 }
 
-@keyframes plasmaPulse {
+/* Clignotement 8-bit : tout ou rien, pas de fondu */
+@keyframes pxBlink {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.45; }
+  50%      { opacity: 0; }
 }
 
 /* ============================================================
-   TITRE DE SECTION — style KDE "groupe" / separator header
+   TITRE DE SECTION — façon écran de terminal
    ============================================================ */
 .section-title {
   font-size: 10px;
   font-weight: 700;
-  color: var(--br-accent);
-  padding: 8px 12px 5px;
+  color: var(--px-orange-deep);
+  background: var(--px-bg-alt);
+  padding: 7px 12px 6px;
   display: flex;
   align-items: center;
   gap: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.9px;
-  border-bottom: 1px solid var(--br-separator);
+  letter-spacing: 1.5px;
+  border-bottom: 2px solid var(--px-border);
   flex-shrink: 0;
+}
+
+body.dark-mode .section-title {
+  color: var(--px-orange);
 }
 
 .section-title svg {
   width: 11px;
   height: 11px;
-  stroke: var(--br-accent);
+  stroke: currentColor;
 }
 
 /* ============================================================
-   LISTE D'HISTORIQUE — Plasma ListView
+   LISTE D'HISTORIQUE
    ============================================================ */
 #result {
   overflow-y: auto;
   flex: 1;
-  background: var(--br-view);
+  background: var(--px-bg);
   min-height: 0;
+  /* Firefox : pas de ::-webkit-scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--px-orange) var(--px-bg-alt);
 }
 
 #result::-webkit-scrollbar {
-  width: 5px;
+  width: 10px;
 }
 
 #result::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--px-bg-alt);
+  border-left: 2px solid var(--px-separator);
 }
 
 #result::-webkit-scrollbar-thumb {
-  background: var(--br-border);
-  border-radius: 3px;
+  background: var(--px-orange);
+  border: 2px solid var(--px-bg-alt);
+  border-radius: 0;
 }
 
 #result::-webkit-scrollbar-thumb:hover {
-  background: var(--br-accent);
+  background: var(--px-orange-bright);
 }
 
 .history-list {
@@ -373,12 +431,11 @@ body {
 }
 
 /* ============================================================
-   ITEMS — style Plasma list row
+   ITEMS — cases de la liste
    ============================================================ */
 .history-item {
-  padding: 9px 12px 8px 14px;
-  border-bottom: 1px solid var(--br-separator);
-  transition: background 0.08s ease;
+  padding: 9px 12px 8px 16px;
+  border-bottom: 2px solid var(--px-separator);
   position: relative;
   cursor: default;
 }
@@ -388,25 +445,24 @@ body {
 }
 
 .history-item:hover {
-  background: var(--br-hover);
+  background: var(--px-hover);
 }
 
-/* Accent gauche 2px — signature Plasma */
+/* Accent gauche 4px — carré, sans arrondi */
 .history-item::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 7px;
-  bottom: 7px;
-  width: 2px;
-  border-radius: 1px;
-  background: var(--br-border);
+  top: 6px;
+  bottom: 6px;
+  width: 4px;
+  background: var(--px-separator);
 }
 
-.history-item.safe::before       { background: var(--br-positive); }
-.history-item.suspicious::before { background: var(--br-warning); }
-.history-item.malicious::before  { background: var(--br-negative); }
-.history-item.skipped::before    { background: var(--br-warning); opacity: 0.35; }
+.history-item.safe::before       { background: var(--px-safe); }
+.history-item.suspicious::before { background: var(--px-warn); }
+.history-item.malicious::before  { background: var(--px-danger); }
+.history-item.skipped::before    { background: var(--px-warn); opacity: 0.4; }
 
 /* Ligne 1 : nom de fichier + icône statut */
 .item-header {
@@ -421,9 +477,9 @@ body {
   display: flex;
   align-items: center;
   gap: 7px;
-  font-weight: 500;
-  font-size: 13px;
-  color: var(--br-view-fg);
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--px-fg);
   min-width: 0;
   flex: 1;
 }
@@ -431,8 +487,7 @@ body {
 .item-filename svg {
   width: 13px;
   height: 13px;
-  stroke: var(--br-accent);
-  opacity: 0.85;
+  stroke: var(--px-orange);
   flex-shrink: 0;
 }
 
@@ -466,54 +521,55 @@ body {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 11px;
-  color: var(--br-window-fg-dim);
+  font-size: 10px;
+  color: var(--px-fg-dim);
 }
 
 .item-date svg {
   width: 10px;
   height: 10px;
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 /* ============================================================
-   BADGE DE DÉTECTION — Plasma chip
+   BADGE DE DÉTECTION — étiquette pixel carrée
    ============================================================ */
 .detection-badge {
-  font-size: 10px;
-  font-weight: 600;
-  padding: 2px 7px;
-  border-radius: 10px;
-  border: 1px solid transparent;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 0;
+  border: 2px solid transparent;
   white-space: nowrap;
-  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
   display: inline-flex;
   align-items: center;
   gap: 3px;
 }
 
 .detection-badge.safe {
-  background: var(--br-positive-bg);
-  color: var(--br-positive);
-  border-color: rgba(39, 174, 96, 0.28);
+  background: var(--px-safe-bg);
+  color: var(--px-safe);
+  border-color: var(--px-safe);
 }
 
 .detection-badge.suspicious {
-  background: var(--br-warning-bg);
-  color: var(--br-warning);
-  border-color: rgba(246, 116, 0, 0.28);
+  background: var(--px-warn-bg);
+  color: var(--px-warn);
+  border-color: var(--px-warn);
 }
 
 .detection-badge.malicious {
-  background: var(--br-negative-bg);
-  color: var(--br-negative);
-  border-color: rgba(218, 68, 83, 0.28);
+  background: var(--px-danger-bg);
+  color: var(--px-danger);
+  border-color: var(--px-danger);
 }
 
 .detection-badge.skipped {
-  background: var(--br-warning-bg);
-  color: var(--br-warning);
-  border-color: rgba(246, 116, 0, 0.28);
+  background: var(--px-warn-bg);
+  color: var(--px-warn);
+  border-color: var(--px-warn);
 }
 
 /* ============================================================
@@ -523,28 +579,32 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--br-warning);
-  color: #fff;
+  background: var(--px-orange);
+  color: #ffffff;
   font-size: 9px;
   font-weight: 700;
   padding: 2px 7px;
-  border-bottom-left-radius: var(--r-md);
-  letter-spacing: 0.6px;
+  border-left: 2px solid var(--px-orange-darker);
+  border-bottom: 2px solid var(--px-orange-darker);
+  letter-spacing: 0.8px;
   text-transform: uppercase;
-  opacity: 0.88;
+}
+
+body.dark-mode .cancelled-banner {
+  color: #140a02;
 }
 
 .history-item.skipped {
   position: relative;
-  background: rgba(246, 116, 0, 0.04);
+  background: rgba(255, 122, 0, 0.04);
 }
 
 body.dark-mode .history-item.skipped {
-  background: rgba(246, 116, 0, 0.07);
+  background: rgba(255, 140, 31, 0.07);
 }
 
 /* ============================================================
-   DÉTAILS PAR MOTEUR — Plasma expandable section
+   DÉTAILS PAR MOTEUR
    ============================================================ */
 details {
   margin-top: 5px;
@@ -554,28 +614,35 @@ details {
 summary {
   cursor: pointer;
   padding: 3px 7px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--br-accent);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--px-orange-deep);
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  border-radius: var(--r-sm);
-  transition: background 0.08s ease;
+  border: 2px solid transparent;
+  border-radius: 0;
   list-style: none;
   user-select: none;
+}
+
+body.dark-mode summary {
+  color: var(--px-orange);
 }
 
 summary::-webkit-details-marker { display: none; }
 
 summary:hover {
-  background: var(--br-hover);
+  background: var(--px-hover);
+  border-color: var(--px-border);
 }
 
 summary svg {
   width: 11px;
   height: 11px;
-  stroke: var(--br-accent);
+  stroke: currentColor;
 }
 
 /* ============================================================
@@ -583,25 +650,28 @@ summary svg {
    ============================================================ */
 .engine-table {
   margin-top: 5px;
-  border-radius: var(--r-md);
+  border-radius: 0;
   overflow: hidden;
   max-height: 200px;
   overflow-y: auto;
-  border: 1px solid var(--br-separator);
-  background: var(--br-window);
+  border: 2px solid var(--px-border);
+  background: var(--px-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--px-orange) var(--px-bg-alt);
 }
 
 .engine-table::-webkit-scrollbar {
-  width: 4px;
+  width: 8px;
+}
+
+.engine-table::-webkit-scrollbar-track {
+  background: var(--px-bg-alt);
 }
 
 .engine-table::-webkit-scrollbar-thumb {
-  background: var(--br-border);
-  border-radius: 2px;
-}
-
-.engine-table::-webkit-scrollbar-thumb:hover {
-  background: var(--br-accent);
+  background: var(--px-orange);
+  border: 2px solid var(--px-bg-alt);
+  border-radius: 0;
 }
 
 .engine-table table {
@@ -613,32 +683,36 @@ summary svg {
 .engine-table thead {
   position: sticky;
   top: 0;
-  background: var(--br-window);
+  background: var(--px-bg-alt);
   z-index: 10;
-  border-bottom: 1px solid var(--br-separator);
 }
 
 .engine-table th {
   text-align: left;
   padding: 5px 10px;
   font-weight: 700;
-  color: var(--br-window-fg);
+  color: var(--px-orange-deep);
   text-transform: uppercase;
   font-size: 9px;
-  letter-spacing: 0.7px;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--px-border);
+}
+
+body.dark-mode .engine-table th {
+  color: var(--px-orange);
 }
 
 .engine-table td {
   padding: 4px 10px;
-  border-bottom: 1px solid var(--br-separator);
-  color: var(--br-window-fg);
+  border-bottom: 1px solid var(--px-separator);
+  color: var(--px-fg);
   word-break: break-word;
   font-size: 11px;
   vertical-align: middle;
 }
 
 .engine-table td:first-child {
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
   min-width: 120px;
 }
@@ -654,7 +728,7 @@ summary svg {
 }
 
 .engine-table tbody tr:hover {
-  background: var(--br-hover);
+  background: var(--px-hover);
 }
 
 .engine-table tbody tr:last-child td {
@@ -673,8 +747,11 @@ summary svg {
    ============================================================ */
 .empty-state {
   text-align: center;
-  padding: 36px 20px;
-  color: var(--br-window-fg);
+  padding: 32px 20px;
+  margin: 16px;
+  color: var(--px-fg);
+  border: 2px dashed var(--px-border);
+  background: var(--px-bg-alt);
 }
 
 .empty-state-icon {
@@ -687,21 +764,22 @@ summary svg {
 .empty-state-icon svg {
   width: 36px;
   height: 36px;
-  stroke: currentColor;
+  stroke: var(--px-orange);
   stroke-width: 1.5;
-  opacity: 0.38;
+  opacity: 0.6;
 }
 
 .empty-state-text {
-  font-size: 13px;
+  font-size: 12px;
   margin-bottom: 4px;
-  font-weight: 600;
-  opacity: 0.85;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .empty-state-subtext {
   font-size: 11px;
-  color: var(--br-window-fg-dim);
+  color: var(--px-fg-dim);
 }
 
 /* ============================================================
@@ -710,35 +788,41 @@ summary svg {
 .loading {
   text-align: center;
   padding: 20px;
-  color: var(--br-window-fg-dim);
-  font-size: 12px;
+  color: var(--px-fg-dim);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Curseur de terminal qui clignote après "Chargement".
+   La classe reste sur #result après le rendu : on ne montre le
+   curseur que tant qu'aucun contenu n'a été injecté. */
+.loading:not(:has(*))::after {
+  content: '_';
+  animation: pxBlink 1s steps(2, start) infinite;
 }
 
 .error-state {
   margin: 10px 12px;
   padding: 8px 12px;
-  color: var(--br-negative);
-  background: var(--br-negative-bg);
-  border-radius: var(--r-md);
-  font-size: 12px;
-  border: 1px solid rgba(218, 68, 83, 0.25);
+  color: var(--px-danger);
+  background: var(--px-danger-bg);
+  border: 2px solid var(--px-danger);
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 /* ============================================================
    ICÔNES DE STATUT
    ============================================================ */
-.status-icon-safe svg       { stroke: var(--br-positive); }
-.status-icon-suspicious svg { stroke: var(--br-warning); }
+.status-icon-safe svg       { stroke: var(--px-safe); }
+.status-icon-suspicious svg { stroke: var(--px-warn); }
 .status-icon-malicious svg  {
-  stroke: var(--br-negative);
-  animation: pulseAlert 1.5s ease-in-out infinite;
+  stroke: var(--px-danger);
+  animation: pxBlink 1s steps(2, start) infinite;
 }
-.status-icon-unknown svg    { stroke: var(--br-window-fg-dim); }
-
-@keyframes pulseAlert {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.42; }
-}
+.status-icon-unknown svg    { stroke: var(--px-fg-dim); }
 
 /* ============================================================
    HELPERS
