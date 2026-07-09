@@ -588,7 +588,14 @@ body.dark-mode .info-box-text a {
   background: var(--px-bg-alt);
   border: 3px solid var(--px-border-strong);
   border-radius: 0;
-  transition: none;
+  /* Changement de couleur en 2 crans, pas de fondu */
+  transition: background 0.15s steps(2, end),
+              border-color 0.15s steps(2, end);
+}
+
+/* Le bouton réagit au survol */
+.toggle-switch:hover .toggle-slider {
+  border-color: var(--px-orange);
 }
 
 .toggle-slider::before {
@@ -600,17 +607,29 @@ body.dark-mode .info-box-text a {
   top: 3px;
   background: var(--px-fg-dim);
   border-radius: 0;
-  transition: none;
+  /* Déplacement par crans de 6px, façon sprite 8-bit */
+  transition: transform 0.2s steps(4, end),
+              background 0.2s steps(4, end);
 }
 
 .toggle-switch input:checked + .toggle-slider {
   background: var(--px-orange);
   border-color: var(--px-orange-darker);
+  /* Flash "power-up" à l'allumage */
+  animation: pxToggleOn 0.3s steps(2, end);
 }
 
 .toggle-switch input:checked + .toggle-slider::before {
   transform: translateX(24px);
   background: #ffffff;
+}
+
+@keyframes pxToggleOn {
+  0%, 100% { }
+  50% {
+    background: var(--px-orange-bright);
+    box-shadow: 0 0 0 3px var(--px-orange-bright);
+  }
 }
 
 .toggle-switch input:focus-visible + .toggle-slider {
