@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
           console.warn('Test API warning:', testResponse.status);
         }
         
-        await browser.storage.local.set({ vt_api_key: val });
+        await VTUtils.setApiKey(val);
         showSuccess(VTUtils.t('successApiKeySaved'));
         
         document.getElementById('api').value = '';
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
           showError(VTUtils.t('errorApiKeyTimeout'));
         } else {
           showError(VTUtils.t('errorApiKeyNetwork'));
-          await browser.storage.local.set({ vt_api_key: val });
+          await VTUtils.setApiKey(val);
         }
       } finally {
         saveBtnEl.disabled = false;
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     forgetBtn.addEventListener('click', async () => {
       if (!confirm(VTUtils.t('confirmDeleteKey'))) return;
       
-      await browser.storage.local.remove('vt_api_key');
+      await VTUtils.clearApiKey();
       document.getElementById('api').value = '';
       document.getElementById('api').placeholder = VTUtils.t('placeholderApiKey');
       showSuccess(VTUtils.t('successApiKeyDeleted'));
@@ -127,9 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const toggle = document.getElementById('dark-mode-toggle');
       if (toggle) toggle.checked = document.body.classList.contains('dark-mode');
       
-      const s = await browser.storage.local.get('vt_api_key');
-      if (s.vt_api_key && VTUtils.isValidApiKey(s.vt_api_key)) {
-        const key = s.vt_api_key;
+      // Déchiffre la clé stockée (et migre l'ancien stockage en clair au passage)
+      const key = await VTUtils.getApiKey();
+      if (key) {
         const masked = `${key.slice(0, 8)}${'*'.repeat(48)}${key.slice(-8)}`;
         document.getElementById('api').placeholder = `${VTUtils.t('placeholderApiKeyCurrent')}: ${masked}`;
         document.getElementById('api').value = '';

@@ -85,7 +85,7 @@
     "message": "Colle ta clé API VirusTotal ici (64 caractères hexadécimaux)"
   },
   "hintApiKey": {
-    "message": "Ta clé est stockée localement dans ton navigateur et chiffrée par Firefox"
+    "message": "Ta clé est chiffrée (AES-256-GCM) et stockée localement dans ton navigateur"
   },
   "btnSaveKey": {
     "message": "Enregistrer la clé"
@@ -139,7 +139,7 @@
     "message": "Protection des données :"
   },
   "infoSecurityPoint1": {
-    "message": "Ta clé API est stockée localement et chiffrée par Firefox"
+    "message": "Ta clé API est chiffrée localement (AES-256-GCM) et ne quitte jamais ton navigateur"
   },
   "infoSecurityPoint2": {
     "message": "Toutes les communications utilisent HTTPS (TLS 1.3)"
